@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DuelMonstersOfTheMultiverse.ChazzPrinceton;
+﻿using System.Linq;
+using DMotM.ChazzPrinceton;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.UnitTest;
 using NUnit.Framework;
 
-namespace DuelMonstersOfTheMultiverse_Tests
+namespace DMotM_Tests
 {
     [TestFixture]
     public class ChazzPrincetonCharacterCardController_Tests : BaseTest
@@ -18,7 +15,7 @@ namespace DuelMonstersOfTheMultiverse_Tests
         public void Test_ChazzPrinceton_Loads()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", "DuelMonstersOfTheMultiverse.ChazzPrinceton", "Megalopolis");
+            SetupGameController("BaronBlade", "DMotM.ChazzPrinceton", "Megalopolis");
 
             // Assert that there are exactly 3 turn takers
             Assert.That(GameController.TurnTakerControllers.Count(), Is.EqualTo(3));

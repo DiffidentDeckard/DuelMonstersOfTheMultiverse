@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using System;
-using Handelabra.Sentinels.Engine.Model;
-using Handelabra.Sentinels.Engine.Controller;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Controller.PromoCardUnlockControllers;
+using Handelabra.Sentinels.Engine.Model;
+using NUnit.Framework;
 
 namespace Handelabra.Sentinels.UnitTest
 {

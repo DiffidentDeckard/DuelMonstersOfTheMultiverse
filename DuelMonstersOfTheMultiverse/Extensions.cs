@@ -6,7 +6,7 @@ using System.Text;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 
-namespace DuelMonstersOfTheMultiverse
+namespace DMotM
 {
     /// <summary>
     /// Extensions to make repeated code simpler

@@ -5,7 +5,7 @@ using System.Linq;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 
-namespace DuelMonstersOfTheMultiverse.ChazzPrinceton
+namespace DMotM.ChazzPrinceton
 {
     public class ChazzPrincetonCharacterCardController : HeroCharacterCardController
     {

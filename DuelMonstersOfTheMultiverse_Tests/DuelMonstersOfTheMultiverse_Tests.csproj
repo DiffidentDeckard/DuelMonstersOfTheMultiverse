@@ -13,7 +13,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AFE958F0-3C90-4493-A425-48A660B58E76}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DuelMonstersOfTheMultiverse_Tests</RootNamespace>
+    <RootNamespace>DMotM_Tests</RootNamespace>
     <AssemblyName>DuelMonstersOfTheMultiverse_Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

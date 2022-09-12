@@ -1,11 +1,11 @@
 ﻿using System;
-using NUnit.Framework;
 using System.Reflection;
-using Handelabra.Sentinels.Engine.Model;
-using DuelMonstersOfTheMultiverse.ChazzPrinceton;
+using DMotM.ChazzPrinceton;
 using Handelabra;
+using Handelabra.Sentinels.Engine.Model;
+using NUnit.Framework;
 
-namespace DuelMonstersOfTheMultiverse_Tests
+namespace DMotM_Tests
 {
     [SetUpFixture]
     public class Setup
@@ -20,7 +20,7 @@ namespace DuelMonstersOfTheMultiverse_Tests
             // Tell the engine about our mod assembly so it can load up our code.
             // It doesn't matter which type as long as it comes from the mod's assembly.
             var ass = Assembly.GetAssembly(typeof(ChazzPrincetonCharacterCardController)); // replace with your own type
-            ModHelper.AddAssembly("DuelMonstersOfTheMultiverse", ass); // replace with your own namespace
+            ModHelper.AddAssembly("DMotM", ass); // replace with your own namespace
         }
 
         protected void Output(string message)
