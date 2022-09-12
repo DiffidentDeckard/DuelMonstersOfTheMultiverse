@@ -9,9 +9,8 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Handelabra.Sentinels.Engine.Controller.PromoCardUnlockControllers;
-using Handelabra;
 
-namespace DuelMonstersOfTheMultiverse_Tests
+namespace Handelabra.Sentinels.UnitTest
 {
     public class BaseTest
     {
@@ -4157,14 +4156,14 @@ namespace DuelMonstersOfTheMultiverse_Tests
         protected GameControllerDecisionEvent AssertNoDecision(SelectionType selectionTypeThatShouldNotShowUp)
         {
             GameControllerDecisionEvent decider = decision =>
+            {
+                if (decision.SelectionType == selectionTypeThatShouldNotShowUp)
                 {
-                    if (decision.SelectionType == selectionTypeThatShouldNotShowUp)
-                    {
-                        Assert.Fail("No decision of selection type " + selectionTypeThatShouldNotShowUp + " was expected to be present, but there was a decision: " + decision.ToStringForMultiplayerDebugging());
-                    }
+                    Assert.Fail("No decision of selection type " + selectionTypeThatShouldNotShowUp + " was expected to be present, but there was a decision: " + decision.ToStringForMultiplayerDebugging());
+                }
 
-                    return this.MakeDecisions(decision);
-                };
+                return this.MakeDecisions(decision);
+            };
 
             ReplaceOnMakeDecisions(decider);
             return decider;
@@ -4488,12 +4487,12 @@ namespace DuelMonstersOfTheMultiverse_Tests
                 RemoveAssertNextMessage(oldReceiver);
             }
             GameControllerMessageEvent receiver = (message) =>
-                {
-                    RunCoroutine(this.ReceiveMessage(message));
-                    Assert.IsTrue(message.Message.Contains(expectedMessage));
-                    _expectedMessageWasShown = true;
-                    return DoNothing();
-                };
+            {
+                RunCoroutine(this.ReceiveMessage(message));
+                Assert.IsTrue(message.Message.Contains(expectedMessage));
+                _expectedMessageWasShown = true;
+                return DoNothing();
+            };
 
             this.GameController.OnSendMessage += receiver;
             _expectedMessageWasShown = false;
@@ -4547,11 +4546,11 @@ namespace DuelMonstersOfTheMultiverse_Tests
                 RemoveAssertNextMessage(oldReceiver);
             }
             GameControllerMessageEvent receiver = (message) =>
-                {
-                    RunCoroutine(this.ReceiveMessage(message));
-                    Assert.Fail("No message was expected, but there was one: '" + message.Message + "'");
-                    return DoNothing();
-                };
+            {
+                RunCoroutine(this.ReceiveMessage(message));
+                Assert.Fail("No message was expected, but there was one: '" + message.Message + "'");
+                return DoNothing();
+            };
 
             this.GameController.OnSendMessage += receiver;
             return receiver;

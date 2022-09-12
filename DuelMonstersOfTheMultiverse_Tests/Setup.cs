@@ -19,8 +19,8 @@ namespace DuelMonstersOfTheMultiverse_Tests
 
             // Tell the engine about our mod assembly so it can load up our code.
             // It doesn't matter which type as long as it comes from the mod's assembly.
-            var a = Assembly.GetAssembly(typeof(ChazzPrincetonCharacterCardController)); // replace with your own type
-            ModHelper.AddAssembly("DuelMonstersOfTheMultiverse", a); // replace with your own namespace
+            var ass = Assembly.GetAssembly(typeof(ChazzPrincetonCharacterCardController)); // replace with your own type
+            ModHelper.AddAssembly("DuelMonstersOfTheMultiverse", ass); // replace with your own namespace
         }
 
         protected void Output(string message)
