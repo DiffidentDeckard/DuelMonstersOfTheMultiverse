@@ -1,0 +1,42 @@
+{
+  "name": "Chazz Princeton",
+  "kind": "Hero",
+  "initialCardIdentifiers": [
+    "ChazzPrincetonCharacter"
+  ],
+  "cards": [
+    {
+      "identifier": "ChazzPrincetonCharacter",
+      "title": "Chazz Princeton",
+      "count": 1,
+      "character": true,
+      "complexity": 2,
+      "hitpoints": 27,
+      "hitpointsColor": "C94742",
+      "backgroundColor": "fbf8f9",
+      "foilBackgroundColor": "FEFEFE",
+      "body": "Chazz It Up!",
+      "powers": [
+        "You may play a card from your hand that shares a Keyword, other than 'limited', with a target you have in your play area. If you do not, draw 1 card."
+      ],
+      "icons": [
+        "HasPower",
+        "PlayCardNow",
+        "DrawCardNow"
+      ],
+      "incapacitatedAbilities": [
+        "One player may play a card.",
+        "One hero may use a power.",
+        "One player may draw a card."
+      ],
+      "flippedIcons": [
+        "PlayCardNow",
+        "UsePowerNow",
+        "DrawCardNow"
+      ],
+      "openingLines": {
+        "default": "Chazz default opening line"
+      }
+    }
+  ]
+}
