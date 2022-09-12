@@ -37,6 +37,398 @@
       "openingLines": {
         "default": "Chazz default opening line"
       }
+    },
+    {
+      "identifier": "ArmedDragonLv3",
+      "title": "Armed Dragon Lv3",
+      "count": 3,
+      "hitpoints": 3,
+      "keywords": [
+        "armed"
+      ],
+      "body": [
+        "At the start of your turn, you may play 'Armed Dragon Lv5' from your hand. If you do, destroy this card.",
+        "If this card is destroyed, draw a card."
+      ],
+      "icons": [
+        "StartOfTurnAction",
+        "PlayCardNow",
+        "DestroySelf",
+        "DrawCardNow"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "ArmedDragonLv5",
+      "title": "Armed Dragon Lv5",
+      "count": 3,
+      "hitpoints": 5,
+      "keywords": [
+        "armed"
+      ],
+      "body": [
+        "When you play this card during your play or power phase, destroy a target you control.",
+        "At the start of your turn, you may play 'Armed Dragon Lv7' from your hand. If you do, destroy this card.",
+        "At the end of your turn, deal 1 target 2 projectile damage."
+      ],
+      "icons": [
+        "DestroyTarget",
+        "StartAndEndOfTurnAction",
+        "PlayCardNow",
+        "DestroySelf",
+        "DealDamageProjectile"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "ArmedDragonLv7",
+      "title": "Armed Dragon Lv7",
+      "count": 2,
+      "hitpoints": 7,
+      "keywords": [
+        "armed",
+        "limited"
+      ],
+      "body": [
+        "Cannot be played during your play or power phase.",
+        "At the start of your turn, you may play 'Armed Dragon Lv10' from your hand. If you do, destroy this card.",
+        "At the end of your turn, deal 1 target 3 projectile damage."
+      ],
+      "icons": [
+        "CannotPlayCards",
+        "StartAndEndOfTurnAction",
+        "PlayCardNow",
+        "DestroySelf",
+        "DealDamageProjectile"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "ArmedDragonLv10",
+      "title": "Armed Dragon Lv10",
+      "count": 1,
+      "hitpoints": 10,
+      "keywords": [
+        "armed"
+      ],
+      "body": [
+        "Cannot be played except at the start of your turn.",
+        "At the end of your turn, deal 1 target 4 Projectile damage."
+      ],
+      "powers": [
+        "Discard a card. Deal each non-hero target 4 projectile damage."
+      ],
+      "icons": [
+        "CannotPlayCards",
+        "EndOfTurnAction",
+        "DealDamageProjectile",
+        "HasPower",
+        "Discard"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "VTigerJet",
+      "title": "V-Tiger Jet",
+      "count": 2,
+      "hitpoints": 4,
+      "keywords": [
+        "abc",
+        "limited"
+      ],
+      "body": "At the end of your turn, deal 1 target 1 radiant damage.",
+      "powers": [
+        "If 'W-Wing Catapult' is in your play area, you may destroy an Ongoing Card."
+      ],
+      "icons": [
+        "EndOfTurnAction",
+        "DealDamageRadiant",
+        "HasPower",
+        "DestroyOngoing"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "WWingCatapult",
+      "title": "W-Wing Catapult",
+      "count": 2,
+      "hitpoints": 4,
+      "keywords": [
+        "abc",
+        "limited"
+      ],
+      "body": "At the end of your turn, deal 1 target 1 radiant damage.",
+      "powers": [
+        "If 'V-Tiger Jet' is in your play area, you may destroy an Environment Card."
+      ],
+      "icons": [
+        "EndOfTurnAction",
+        "DealDamageRadiant",
+        "HasPower",
+        "DestroyEnvironment"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "XHeadCannon",
+      "title": "X-Head Cannon",
+      "count": 2,
+      "hitpoints": 4,
+      "keywords": [
+        "abc",
+        "limited"
+      ],
+      "body": "At the end of your turn, deal 1 target 1 radiant damage.",
+      "powers": [
+        "If 'Y-Dragon Head' is in your play area, select a target. Until the start of your turn, damage dealt to that target is irreducible. If 'Z-Metal Tank' is in your play area, you may use a power now."
+      ],
+      "icons": [
+        "EndOfTurnAction",
+        "DealDamageRadiant",
+        "HasPower",
+        "MakeDamageIrreducible",
+        "UsePowerNow"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "YDragonHead",
+      "title": "Y-Dragon Head",
+      "count": 2,
+      "hitpoints": 4,
+      "keywords": [
+        "abc",
+        "limited"
+      ],
+      "body": "At the end of your turn, deal 1 target 1 radiant damage.",
+      "powers": [
+        "If 'Z-Metal Tank' is in your play area, each ABC target gains 1 HP. If 'X-Head Cannon' is in your play area, you may use a power now."
+      ],
+      "icons": [
+        "EndOfTurnAction",
+        "DealDamageRadiant",
+        "HasPower",
+        "GainHP",
+        "UsePowerNow"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "ZMetalTank",
+      "title": "Z-Metal Tank",
+      "count": 2,
+      "hitpoints": 4,
+      "keywords": [
+        "abc",
+        "limited"
+      ],
+      "body": "At the end of your turn, deal 1 target 1 radiant damage.",
+      "powers": [
+        "If 'X-Head Cannon' is in your play area, select a target. Until the start of your turn, damage dealt by that target is reduced by 1. If 'Y-Dragon Head' is in your play area, you may use a power now."
+      ],
+      "icons": [
+        "EndOfTurnAction",
+        "DealDamageRadiant",
+        "HasPower",
+        "ReduceDamageDealt",
+        "UsePowerNow"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "AbcUnion",
+      "title": "ABC Union",
+      "count": 1,
+      "keywords": [
+        "abc",
+        "ongoing"
+      ],
+      "body": [
+        "When this card is played, for each 'abc' target in your play area, you may either destroy an Ongoing or Environment card, or select a hero to draw a card.",
+        "Increase damage dealt by 'abc' targets by 1.",
+        "Reduce damage dealt to 'abc' targets by 1.",
+        "At the start of your tun, destroy this card."
+      ],
+      "icons": [
+        "DestroyOngoing",
+        "DestroyEnvironment",
+        "DrawCardNow",
+        "IncreaseDamageDealt",
+        "ReduceDamageDealt",
+        "StartOfTurnAction",
+        "DestroySelf"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "OjamaYellow",
+      "title": "Ojama Yellow",
+      "count": 2,
+      "hitpoints": 2,
+      "keywords": [
+        "ojama",
+        "limited"
+      ],
+      "body": [
+        "The first time each turn that this card would be dealt damage, you may redirect that damage to another Hero Target.",
+        "After this has occurred, for the rest of the turn this card may redirect any damage that would be dealt to another Hero Target to itself."
+      ],
+      "icons": [
+        "RedirectDamage"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "OjamaGreen",
+      "title": "Ojama Green",
+      "count": 2,
+      "hitpoints": 2,
+      "keywords": [
+        "ojama",
+        "limited"
+      ],
+      "body": [
+        "The first time each turn that this card would be dealt damage, you may redirect that damage to another Hero Target.",
+        "After this has occurred, for the rest of the turn this card may redirect any damage that would be dealt to another Hero Target to itself."
+      ],
+      "icons": [
+        "RedirectDamage"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "OjamaBlack",
+      "title": "Ojama Black",
+      "count": 2,
+      "hitpoints": 2,
+      "keywords": [
+        "ojama",
+        "limited"
+      ],
+      "body": [
+        "The first time each turn that this card would be dealt damage, you may redirect that damage to another Hero Target.",
+        "After this has occurred, for the rest of the turn this card may redirect any damage that would be dealt to another Hero Target to itself."
+      ],
+      "icons": [
+        "RedirectDamage"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "OjamaKing",
+      "title": "Ojama King",
+      "count": 1,
+      "hitpoints": 6,
+      "keywords": [
+        "ojama"
+      ],
+      "body": [
+        "When this card enters play, you can select up to X other non-character cards in play or in trash, and shuffle them into their respective decks, where X is the number of other 'ojama' targets in your play area.",
+        "Increase damage dealt by this card by the number of cards shuffled into deck this way.",
+        "Reduce damage dealt to this card by the number of cards shuffled into deck this way.",
+        "The first time each turn this card is dealt damage, this card deals the source of that damage 2 melee damage."
+      ],
+      "icons": [
+        "Manipulate",
+        "IncreaseDamageDealt",
+        "ReduceDamageDealt",
+        "CounterDamage"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "Ojamuscle",
+      "title": "Ojamuscle",
+      "count": 2,
+      "keywords": [
+        "ojama",
+        "one-shot"
+      ],
+      "body": "Select one 'ojama' target in your play area. For each 'ojama' target in your play area, the selected target deals 1 target 1 melee damage.",
+      "icons": [
+        "DealDamageMelee"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "MagicalMallet",
+      "title": "Magical Mallet",
+      "count": 3,
+      "keywords": [
+        "one-shot"
+      ],
+      "body": [
+        "Shuffle any number of cards from your hand into your deck.",
+        "Draw cards equal to the number of cards you shuffled into your deck, +1.",
+        "You may play a card."
+      ],
+      "icons": [
+        "Manipulate",
+        "DrawCardNow",
+        "PlayCardNow"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "YouGoByeBye",
+      "title": "You Go Bye Bye!",
+      "count": 2,
+      "keywords": [
+        "ongoing",
+        "limited"
+      ],
+      "body": "The first time each turn that you play a target that shares a Keyword with another target in your play area, other that 'limited', Chazz Princeton gains 2 HP and deals 1 target 2 sonic damage.",
+      "icons": [
+        "GainHP",
+        "DealDamageSonic"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "CallOfTheHaunted",
+      "title": "Call Of The Haunted",
+      "count": 2,
+      "keywords": [
+        "ongoing",
+        "limited"
+      ],
+      "body": "At the start of your turn, you may select a target in your trash that has 5HP or less and put it in play.",
+      "icons": [
+        "StartOfTurnAction",
+        "Manipulate"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "ThePrincetonName",
+      "title": "The Princeton Name",
+      "count": 2,
+      "keywords": [
+        "one-shot"
+      ],
+      "body": "Draw 4 cards. Discard up to 3 cards. Chazz Princeton deals himself X psychic damage where X is 3 minus the number of cards discarded this way.",
+      "icons": [
+        "DrawCardNow",
+        "Discard",
+        "DealDamagePsychic"
+      ],
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "ItsGoTime",
+      "title": "It's Go Time!'",
+      "count": 2,
+      "keywords": [
+        "one-shot"
+      ],
+      "body": [
+        "If you have any 'armed' targets, any 'abc' targets, and/or any 'ojama' targets in your play area, you may search your deck for 1 'armed' card, 1 'abc' card, and/or 1 'ojama' card, respectively, and put them in your hand.",
+        "Shuffle your deck."
+      ],
+      "icons": [
+        "Search"
+      ],
+      "flavorText": "flavor text"
     }
   ]
 }

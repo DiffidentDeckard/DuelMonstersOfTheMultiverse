@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using DMotM.ChazzPrinceton;
 using Handelabra.Sentinels.Engine.Controller;
+using Handelabra.Sentinels.Engine.Controller.Legacy;
 using Handelabra.Sentinels.UnitTest;
 using NUnit.Framework;
 

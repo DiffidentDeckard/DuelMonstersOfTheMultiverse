@@ -39,7 +39,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChazzPrinceton\AbcUnionCardController.cs" />
+    <Compile Include="ChazzPrinceton\ArmedDragonLv10CardController.cs" />
+    <Compile Include="ChazzPrinceton\ArmedDragonLv3CardController.cs" />
+    <Compile Include="ChazzPrinceton\ArmedDragonLv5CardController.cs" />
+    <Compile Include="ChazzPrinceton\ArmedDragonLv7CardController.cs" />
+    <Compile Include="ChazzPrinceton\CallOfTheHauntedCardController.cs" />
     <Compile Include="ChazzPrinceton\ChazzPrincetonCharacterCardController.cs" />
+    <Compile Include="ChazzPrinceton\ItsGoTimeCardController.cs" />
+    <Compile Include="ChazzPrinceton\MagicalMalletCardController.cs" />
+    <Compile Include="ChazzPrinceton\OjamaBlackCardController.cs" />
+    <Compile Include="ChazzPrinceton\OjamaGreenCardController.cs" />
+    <Compile Include="ChazzPrinceton\OjamaKingCardController.cs" />
+    <Compile Include="ChazzPrinceton\OjamaYellowCardController.cs" />
+    <Compile Include="ChazzPrinceton\OjamuscleCardController.cs" />
+    <Compile Include="ChazzPrinceton\ThePrincetonNameCardController.cs" />
+    <Compile Include="ChazzPrinceton\VTigerJetCardController.cs" />
+    <Compile Include="ChazzPrinceton\WWingCatapultCardController.cs" />
+    <Compile Include="ChazzPrinceton\XHeadCannonCardController.cs" />
+    <Compile Include="ChazzPrinceton\YDragonHeadCardController.cs" />
+    <Compile Include="ChazzPrinceton\YouGoByeByeCardController.cs" />
+    <Compile Include="ChazzPrinceton\ZMetalTankCardController.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
