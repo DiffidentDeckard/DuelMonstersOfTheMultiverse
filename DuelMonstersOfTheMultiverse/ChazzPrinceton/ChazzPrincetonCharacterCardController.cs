@@ -48,9 +48,8 @@ namespace DMotM.ChazzPrinceton
                     () =>
                     {
                         // Ask player to select a valid card to play
-                        return GameController.StartCoroutineEx(
-                            SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
-                                cardCriteria: new LinqCardCriteria(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea), "keyword-sharing")));
+                        return SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
+                            cardCriteria: new LinqCardCriteria(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea), "keyword-sharing"));
                     }));
 
                 // This is the "draw a card" option
@@ -59,45 +58,45 @@ namespace DMotM.ChazzPrinceton
                     {
                         // Draw 1 card
                         int numCardsToDraw = GetPowerNumeral(0, 1);
-                        return GameController.StartCoroutineEx(
-                            DrawCards(HeroTurnTakerController, numCardsToDraw));
+                        return DrawCards(HeroTurnTakerController, numCardsToDraw);
                     }));
 
                 // Create the SelectFunctionDecision object to perform
                 SelectFunctionDecision sfd = new SelectFunctionDecision(GameController, HeroTurnTakerController, functions, true, cardSource: GetCardSource());
 
                 // Ask the player to select one and perform it
-                yield return GameController.StartCoroutineEx(
-                    GameController.SelectAndPerformFunction(sfd));
-
+                return GameController.SelectAndPerformFunction(sfd);
             }
             // If there are not any valid card options...
             else
             {
                 // Draw 1 card
                 int numCardsToDraw = GetPowerNumeral(0, 1);
-                yield return GameController.StartCoroutineEx(
-                    DrawCards(HeroTurnTakerController, numCardsToDraw));
+                return DrawCards(HeroTurnTakerController, numCardsToDraw);
             }
         }
 
         public override IEnumerator UseIncapacitatedAbility(int index)
         {
+            IEnumerator e = null;
+
             switch (index)
             {
                 case 0:
-                    // One hero may play a card now.
-                    return GameController.StartCoroutineEx(
-                        SelectHeroToPlayCard(DecisionMaker));
+                    // One player may play a card now.
+                    e = SelectHeroToPlayCard(this.DecisionMaker);
+                    break;
                 case 1:
                     // One hero may use a power now.
-                    return GameController.StartCoroutineEx(
-                        GameController.SelectHeroToUsePower(DecisionMaker, cardSource: GetCardSource()));
-                default:
-                    // One hero may draw a card now
-                    return GameController.StartCoroutineEx(
-                        GameController.SelectHeroToDrawCard(DecisionMaker, cardSource: GetCardSource()));
+                    e = this.GameController.SelectHeroToUsePower(this.DecisionMaker, cardSource: GetCardSource());
+                    break;
+                case 2:
+                    // One player may draw a card now
+                    e = this.GameController.SelectHeroToDrawCard(this.DecisionMaker, cardSource: GetCardSource());
+                    break;
             }
+
+            return e;
         }
     }
 }

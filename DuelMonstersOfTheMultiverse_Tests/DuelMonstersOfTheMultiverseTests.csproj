@@ -13,8 +13,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AFE958F0-3C90-4493-A425-48A660B58E76}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DMotM_Tests</RootNamespace>
-    <AssemblyName>DuelMonstersOfTheMultiverse_Tests</AssemblyName>
+    <RootNamespace>DMotMTests</RootNamespace>
+    <AssemblyName>DuelMonstersOfTheMultiverseTests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,7 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChazzPrinceton\ChazzPrincetonCharacterCardController_Tests.cs" />
+    <Compile Include="ChazzPrinceton\ChazzPrincetonCharacterCardControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="Setup.cs" />
@@ -62,7 +62,9 @@
       <Name>DuelMonstersOfTheMultiverse</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MaximillionPegasus\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

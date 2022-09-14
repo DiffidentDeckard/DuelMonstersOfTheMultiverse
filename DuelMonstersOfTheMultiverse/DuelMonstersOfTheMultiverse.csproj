@@ -69,5 +69,8 @@
   <ItemGroup>
     <Content Include="SotM_YGO.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MaximillionPegasus\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

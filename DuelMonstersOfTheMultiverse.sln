@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMonstersOfTheMultiverse", "DuelMonstersOfTheMultiverse\DuelMonstersOfTheMultiverse.csproj", "{44F8C838-553C-482C-B389-2B375B8590C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMonstersOfTheMultiverse_Tests", "DuelMonstersOfTheMultiverse_Tests\DuelMonstersOfTheMultiverse_Tests.csproj", "{AFE958F0-3C90-4493-A425-48A660B58E76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMonstersOfTheMultiverseTests", "DuelMonstersOfTheMultiverse_Tests\DuelMonstersOfTheMultiverseTests.csproj", "{AFE958F0-3C90-4493-A425-48A660B58E76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

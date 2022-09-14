@@ -14,24 +14,6 @@ namespace DMotM
     public static class Extensions
     {
         /// <summary>
-        /// This contains the boiler-plate StartCoroutine/ExhaustCoroutine code that should always be used.
-        /// </summary>
-        /// <param name="gc"></param>
-        /// <param name="coroutine"></param>
-        /// <returns></returns>
-        public static IEnumerator StartCoroutineEx(this GameController gc, IEnumerator coroutine)
-        {
-            if (gc.UseUnityCoroutines)
-            {
-                yield return gc.StartCoroutine(coroutine);
-            }
-            else
-            {
-                gc.ExhaustCoroutine(coroutine);
-            }
-        }
-
-        /// <summary>
         /// Checks to see if this card contains the given keyword.
         /// Unlike the base calls, this is *NOT CASE SENSITIVE*
         /// </summary>
