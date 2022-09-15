@@ -76,8 +76,8 @@ namespace DMotMTests.ChazzPrinceton
             Assert.That(chazzPlayAreaCards, Is.Empty);
 
             // Play Armed Dragon Lv3
-            PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertIsInPlayAndNotUnderCard(ChazzPrincetonConstants.ArmedDragonLv3);
+            Card armedDragonLv3 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
+            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
 
             // Move all Cards from Chazz Princeton's hand into the deck, to get rid of any possible 'armed' cards
             MoveAllCardsFromHandToDeck(ChazzPrinceton);
@@ -118,23 +118,23 @@ namespace DMotMTests.ChazzPrinceton
 
             // Play Ojama Yellow
             Card ojamaYellow = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.OjamaYellow);
-            AssertIsInPlayAndNotUnderCard(ChazzPrincetonConstants.OjamaYellow);
+            AssertIsInPlayAndNotUnderCard(ojamaYellow);
 
             // Put Armed Dragon Lv3 into hand
             Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
+            AssertInHand(ChazzPrinceton, armedDragonLv3);
 
             // Put Y Dragon Head into hand
             Card yDragonHead = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
+            AssertInHand(ChazzPrinceton, yDragonHead);
 
             // Put Ojama Black into hand
             Card ojamaBlack = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
+            AssertInHand(ChazzPrinceton, ojamaBlack);
 
             // Put Ojamuscle into hand
             Card ojamuscle = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
+            AssertInHand(ChazzPrinceton, ojamuscle);
 
             // Assert that there are cards in the deck
             int numCardsInDeck = GetNumberOfCardsInDeck(ChazzPrinceton);
@@ -175,23 +175,23 @@ namespace DMotMTests.ChazzPrinceton
 
             // Play Ojama Yellow
             Card ojamaYellow = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.OjamaYellow);
-            AssertIsInPlayAndNotUnderCard(ChazzPrincetonConstants.OjamaYellow);
+            AssertIsInPlayAndNotUnderCard(ojamaYellow);
 
             // Put Armed Dragon Lv3 into hand
             Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
+            AssertInHand(ChazzPrinceton, armedDragonLv3);
 
             // Put Y Dragon Head into hand
             Card yDragonHead = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
+            AssertInHand(ChazzPrinceton, yDragonHead);
 
             // Put Ojama Black into hand
             Card ojamaBlack = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
+            AssertInHand(ChazzPrinceton, ojamaBlack);
 
             // Put Ojamuscle into hand
             Card ojamuscle = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
-            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
+            AssertInHand(ChazzPrinceton, ojamuscle);
 
             // Assert that there are cards in the deck
             int numCardsInDeck = GetNumberOfCardsInDeck(ChazzPrinceton);
