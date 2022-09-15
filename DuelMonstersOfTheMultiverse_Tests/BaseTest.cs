@@ -241,6 +241,11 @@ namespace Handelabra.Sentinels.UnitTest
         protected Card sanctScion { get { return GetCard("SanctionCharacter"); } }
         protected Card voidScion { get { return GetCard("VoidsoulCharacter"); } }
 
+        // Mod Heroes
+        protected const string ChazzPrincetonNamespace = "DMotM.ChazzPrinceton";
+        protected HeroTurnTakerController ChazzPrinceton { get { return FindHero("ChazzPrinceton"); } }
+
+
         protected List<TurnPhase> turnPhaseList = null;
 
         private int _coroutineCount;
