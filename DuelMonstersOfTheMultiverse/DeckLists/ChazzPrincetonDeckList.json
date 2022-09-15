@@ -48,7 +48,7 @@
       ],
       "body": [
         "At the start of your turn, you may play 'Armed Dragon Lv5' from your hand. If you do, destroy this card.",
-        "If this card is destroyed, draw a card."
+        "If this card is destroyed, draw 1 card."
       ],
       "icons": [
         "StartOfTurnAction",

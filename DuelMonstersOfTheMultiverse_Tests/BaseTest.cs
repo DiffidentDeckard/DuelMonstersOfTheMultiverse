@@ -245,7 +245,15 @@ namespace Handelabra.Sentinels.UnitTest
         protected const string ChazzPrincetonNamespace = "DMotM.ChazzPrinceton";
         protected HeroTurnTakerController ChazzPrinceton { get { return FindHero("ChazzPrinceton"); } }
 
+        // Mod Villains
+        protected const string MaximillionPegasusNamespace = "DMotM.MaximillionPegasus";
+        protected TurnTakerController MaximillionPegasus { get { return FindVillain("ChazzPrinceton"); } }
 
+        // Mod Environments
+        protected const string GearTown = "DMotM.GearTown";
+
+
+        // ===========================================================================================================================================================================================
         protected List<TurnPhase> turnPhaseList = null;
 
         private int _coroutineCount;

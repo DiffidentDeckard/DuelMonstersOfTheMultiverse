@@ -84,15 +84,15 @@ namespace DMotM.ChazzPrinceton
             {
                 case 0:
                     // One player may play a card now.
-                    e = SelectHeroToPlayCard(this.DecisionMaker);
+                    e = SelectHeroToPlayCard(DecisionMaker);
                     break;
                 case 1:
                     // One hero may use a power now.
-                    e = this.GameController.SelectHeroToUsePower(this.DecisionMaker, cardSource: GetCardSource());
+                    e = GameController.SelectHeroToUsePower(DecisionMaker, cardSource: GetCardSource());
                     break;
                 case 2:
                     // One player may draw a card now
-                    e = this.GameController.SelectHeroToDrawCard(this.DecisionMaker, cardSource: GetCardSource());
+                    e = GameController.SelectHeroToDrawCard(DecisionMaker, cardSource: GetCardSource());
                     break;
             }
 
