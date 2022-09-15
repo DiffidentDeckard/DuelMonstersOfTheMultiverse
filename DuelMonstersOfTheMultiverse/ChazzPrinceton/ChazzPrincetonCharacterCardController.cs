@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Handelabra.Sentinels.Engine.Controller;
@@ -23,7 +22,7 @@ namespace DMotM.ChazzPrinceton
 
             // Get all the distinct keywords of those targets, ignoring 'limited'
             IEnumerable<string> keywordsInThisPlayArea = targetsInThisPlayArea.SelectMany(card => card.GetKeywords()).Distinct()
-                .Where(keyword => !keyword.Equals("limited", StringComparison.CurrentCultureIgnoreCase));
+                .Where(keyword => !keyword.Equals(ModConstants.Limited));
 
             // Get the list of playable cards in the hero's hand
             IEnumerable<Card> playableCards = GetPlayableCardsInHand(HeroTurnTakerController);
@@ -52,7 +51,7 @@ namespace DMotM.ChazzPrinceton
                             cardCriteria: new LinqCardCriteria(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea), "keyword-sharing"));
                     }));
 
-                // This is the "draw a card" option
+                // This is the "draw 1 card" option
                 functions.Add(new Function(HeroTurnTakerController, "Draw 1 card.", SelectionType.DrawCard,
                     () =>
                     {

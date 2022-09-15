@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Controller.PromoCardUnlockControllers;
 using Handelabra.Sentinels.Engine.Model;
@@ -242,16 +243,10 @@ namespace Handelabra.Sentinels.UnitTest
         protected Card voidScion { get { return GetCard("VoidsoulCharacter"); } }
 
         // Mod Heroes
-        protected const string ChazzPrincetonNamespace = "DMotM.ChazzPrinceton";
-        protected HeroTurnTakerController ChazzPrinceton { get { return FindHero("ChazzPrinceton"); } }
+        protected HeroTurnTakerController ChazzPrinceton { get { return FindHero(ChazzPrincetonConstants.Hero); } }
 
         // Mod Villains
-        protected const string MaximillionPegasusNamespace = "DMotM.MaximillionPegasus";
-        protected TurnTakerController MaximillionPegasus { get { return FindVillain("ChazzPrinceton"); } }
-
-        // Mod Environments
-        protected const string GearTown = "DMotM.GearTown";
-
+        protected TurnTakerController MaximillionPegasus { get { return FindVillain(MaximillionPegasusConstants.Villain); } }
 
         // ===========================================================================================================================================================================================
         protected List<TurnPhase> turnPhaseList = null;

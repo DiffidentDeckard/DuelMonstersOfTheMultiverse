@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DMotM;
 using DMotM.ChazzPrinceton;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -15,7 +16,7 @@ namespace DMotMTests.ChazzPrinceton
         public void ChazzPrinceton_OnSetup_HasCorrectHP()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
 
             // Assert that there are exactly 3 turn takers
             Assert.That(GameController.TurnTakerControllers.Count(), Is.EqualTo(3));
@@ -37,7 +38,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_WhenNoTargetsInPlayArea_DrawsCard()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
             StartGame();
             GoToUsePowerPhase(ChazzPrinceton);
 
@@ -66,7 +67,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_WhenTargetInPlayAreaButNoValidCardInHand_DrawsCard()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
             StartGame();
             GoToUsePowerPhase(ChazzPrinceton);
 
@@ -75,8 +76,8 @@ namespace DMotMTests.ChazzPrinceton
             Assert.That(chazzPlayAreaCards, Is.Empty);
 
             // Play Armed Dragon Lv3
-            PlayCard(ChazzPrinceton, "ArmedDragonLv3");
-            AssertIsInPlayAndNotUnderCard("ArmedDragonLv3");
+            PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
+            AssertIsInPlayAndNotUnderCard(ChazzPrincetonConstants.ArmedDragonLv3);
 
             // Move all Cards from Chazz Princeton's hand into the deck, to get rid of any possible 'armed' cards
             MoveAllCardsFromHandToDeck(ChazzPrinceton);
@@ -103,7 +104,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_WhenValidAndSelectPlayCard_PresentsCorrectOptions()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
             StartGame();
             GoToUsePowerPhase(ChazzPrinceton);
 
@@ -116,25 +117,24 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInHand(ChazzPrinceton, 0);
 
             // Play Ojama Yellow
-            Card ojamaYellow = PlayCard(ChazzPrinceton, "OjamaYellow");
-            AssertIsInPlayAndNotUnderCard("OjamaYellow");
+            Card ojamaYellow = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.OjamaYellow);
+            AssertIsInPlayAndNotUnderCard(ChazzPrincetonConstants.OjamaYellow);
 
             // Put Armed Dragon Lv3 into hand
-            Card armedDragonLv3 = PutInHand(ChazzPrinceton, "ArmedDragonLv3");
-            AssertInHand(ChazzPrinceton, "ArmedDragonLv3");
-            AssertIsInPlayAndNotUnderCard("OjamaYellow");
+            Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
 
             // Put Y Dragon Head into hand
-            Card yDragonHead = PutInHand(ChazzPrinceton, "YDragonHead");
-            AssertInHand(ChazzPrinceton, "YDragonHead");
+            Card yDragonHead = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
 
             // Put Ojama Black into hand
-            Card ojamaBlack = PutInHand(ChazzPrinceton, "OjamaBlack");
-            AssertInHand(ChazzPrinceton, "OjamaBlack");
+            Card ojamaBlack = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
 
             // Put Ojamuscle into hand
-            Card ojamuscle = PutInHand(ChazzPrinceton, "Ojamuscle");
-            AssertInHand(ChazzPrinceton, "Ojamuscle");
+            Card ojamuscle = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
 
             // Assert that there are cards in the deck
             int numCardsInDeck = GetNumberOfCardsInDeck(ChazzPrinceton);
@@ -161,7 +161,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_WhenValidAndSelectDrawCard_DrawsCard()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
             StartGame();
             GoToUsePowerPhase(ChazzPrinceton);
 
@@ -174,25 +174,24 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInHand(ChazzPrinceton, 0);
 
             // Play Ojama Yellow
-            Card ojamaYellow = PlayCard(ChazzPrinceton, "OjamaYellow");
-            AssertIsInPlayAndNotUnderCard("OjamaYellow");
+            Card ojamaYellow = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.OjamaYellow);
+            AssertIsInPlayAndNotUnderCard(ChazzPrincetonConstants.OjamaYellow);
 
             // Put Armed Dragon Lv3 into hand
-            Card armedDragonLv3 = PutInHand(ChazzPrinceton, "ArmedDragonLv3");
-            AssertInHand(ChazzPrinceton, "ArmedDragonLv3");
-            AssertIsInPlayAndNotUnderCard("OjamaYellow");
+            Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
 
             // Put Y Dragon Head into hand
-            Card yDragonHead = PutInHand(ChazzPrinceton, "YDragonHead");
-            AssertInHand(ChazzPrinceton, "YDragonHead");
+            Card yDragonHead = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
 
             // Put Ojama Black into hand
-            Card ojamaBlack = PutInHand(ChazzPrinceton, "OjamaBlack");
-            AssertInHand(ChazzPrinceton, "OjamaBlack");
+            Card ojamaBlack = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.OjamaBlack);
 
             // Put Ojamuscle into hand
-            Card ojamuscle = PutInHand(ChazzPrinceton, "Ojamuscle");
-            AssertInHand(ChazzPrinceton, "Ojamuscle");
+            Card ojamuscle = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
+            AssertInHand(ChazzPrinceton, ChazzPrincetonConstants.Ojamuscle);
 
             // Assert that there are cards in the deck
             int numCardsInDeck = GetNumberOfCardsInDeck(ChazzPrinceton);
@@ -213,7 +212,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_Incapacitated_AllowsHeroToPlayCard()
         {
             // Setup a sample game with Chazz Princeton and some other heroes, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Legacy", "Haka", "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Haka", "Megalopolis");
             StartGame();
 
             // Incapacitate Chazz Princeton
@@ -242,7 +241,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_Incapacitated_AllowsHeroToUsePower()
         {
             // Setup a sample game with Chazz Princeton and some other heroes, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Legacy", "Haka", "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Haka", "Megalopolis");
             StartGame();
 
             // Incapacitate Chazz Princeton
@@ -266,7 +265,7 @@ namespace DMotMTests.ChazzPrinceton
         public void UsePower_Incapacitated_AllowsHeroToDrawCard()
         {
             // Setup a sample game with Chazz Princeton and some other heroes, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonNamespace, "Legacy", "Haka", "Megalopolis");
+            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Haka", "Megalopolis");
             StartGame();
 
             // Incapacitate Chazz Princeton

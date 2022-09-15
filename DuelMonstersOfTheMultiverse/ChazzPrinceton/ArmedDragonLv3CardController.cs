@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Handelabra.Sentinels.Engine.Controller;
@@ -28,7 +27,7 @@ namespace DMotM.ChazzPrinceton
             IEnumerable<Card> playableCards = GetPlayableCardsInHand(HeroTurnTakerController);
 
             // See if any of them are Armed Dragon Lv5
-            bool hasLv5InHand = playableCards.Any(card => card.Title.Equals("Armed Dragon Lv5", StringComparison.CurrentCultureIgnoreCase));
+            bool hasLv5InHand = playableCards.Any(card => card.Identifier.Equals(ChazzPrincetonConstants.ArmedDragonLv5));
 
             // If Armed Dragon Lv5 is in the hand...
             if (hasLv5InHand)
@@ -38,7 +37,7 @@ namespace DMotM.ChazzPrinceton
 
                 // Player may play it
                 IEnumerator sapcfh = SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
-                    cardCriteria: new LinqCardCriteria(card => card.Title.Equals("Armed Dragon Lv5", StringComparison.CurrentCultureIgnoreCase), "Armed Dragon Lv5"));
+                    cardCriteria: new LinqCardCriteria(card => card.Identifier.Equals(ChazzPrincetonConstants.ArmedDragonLv5), "Armed Dragon Lv5"));
 
                 if (UseUnityCoroutines)
                 {
