@@ -47,7 +47,7 @@
         "armed"
       ],
       "body": [
-        "At the start of your turn, you may play 'Armed Dragon Lv5' from your hand. If you do, destroy this card.",
+        "At the start of your next turn after this card was played, you may play 'Armed Dragon Lv5' from your hand. If you do, destroy this card.",
         "If this card is destroyed, draw 1 card."
       ],
       "icons": [
@@ -68,7 +68,7 @@
       ],
       "body": [
         "When you play this card during your play or power phase, destroy a target you control.",
-        "At the start of your turn, you may play 'Armed Dragon Lv7' from your hand. If you do, destroy this card.",
+        "At the start of your next turn after this card was played, you may play 'Armed Dragon Lv7' from your hand. If you do, destroy this card.",
         "At the end of your turn, deal 1 target 2 projectile damage."
       ],
       "icons": [
@@ -91,7 +91,7 @@
       ],
       "body": [
         "Cannot be played during your play or power phase.",
-        "At the start of your turn, you may play 'Armed Dragon Lv10' from your hand. If you do, destroy this card.",
+        "At the start of your next turn after this card was played, you may play 'Armed Dragon Lv10' from your hand. If you do, destroy this card.",
         "At the end of your turn, deal 1 target 3 projectile damage."
       ],
       "icons": [

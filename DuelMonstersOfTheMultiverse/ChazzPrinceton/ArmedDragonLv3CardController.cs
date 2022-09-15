@@ -14,11 +14,19 @@ namespace DMotM.ChazzPrinceton
 
         public override void AddTriggers()
         {
-            // At start of turn, you may play an Armed Dragon Lv5 from your hand, and destroy this card
-            AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker), StartOfTurnResponse, new List<TriggerType>() { TriggerType.PlayCard, TriggerType.DestroySelf });
+            // At start of turn after this card was played, you may play an Armed Dragon Lv5 from your hand, and destroy this card
+            AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker) && GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) == true,
+                StartOfTurnResponse, new List<TriggerType>() { TriggerType.PlayCard, TriggerType.DestroySelf });
+
+            // At end of every turn, set HasBeenInPlayAtLeastATurn to true if it is false
+            AddEndOfTurnTrigger(turnTaker => GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) != true,
+                EndOfEveryTurnResponse, TriggerType.AddTrigger);
 
             // When this card is destroyed, you may draw 1 card
             AddWhenDestroyedTrigger(DestroyedResponse, TriggerType.DrawCard);
+
+            // Reset the CardProperty when this card leaves play
+            AddAfterLeavesPlayAction(() => ResetFlagAfterLeavesPlay(ModConstants.HasBeenInPlayAtLeastATurn));
         }
 
         private IEnumerator StartOfTurnResponse(PhaseChangeAction pca)
@@ -64,6 +72,18 @@ namespace DMotM.ChazzPrinceton
                     }
                 }
             }
+        }
+
+        private IEnumerator EndOfEveryTurnResponse(PhaseChangeAction pca)
+        {
+            // If HasBeenInPlayAtLeastATurn is false...
+            if (GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) != true)
+            {
+                // Set it to true because we reach an end of turn
+                SetCardProperty(ModConstants.HasBeenInPlayAtLeastATurn, true);
+            }
+
+            return null;
         }
 
         private IEnumerator DestroyedResponse(DestroyCardAction dca)

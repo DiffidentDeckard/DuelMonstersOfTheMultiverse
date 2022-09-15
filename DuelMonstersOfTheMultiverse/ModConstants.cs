@@ -6,6 +6,9 @@
         public const string Limited = "limited";
         public const string OneShot = "one-shot";
         public const string Ongoing = "ongoing";
+
+        // Card Properties
+        public const string HasBeenInPlayAtLeastATurn = "HasBeenInPlayAtLeastATurn";
     }
 
     #region Heroes
