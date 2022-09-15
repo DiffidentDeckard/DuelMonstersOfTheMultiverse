@@ -16,7 +16,7 @@ namespace DMotM.ChazzPrinceton
         {
             // At start of turn after this card was played, you may play an Armed Dragon Lv5 from your hand, and destroy this card
             AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker) && GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) == true,
-                StartOfTurnResponse, new List<TriggerType>() { TriggerType.PlayCard, TriggerType.DestroySelf });
+                StartOfTurnResponse, new List<TriggerType> { TriggerType.PlayCard, TriggerType.DestroySelf });
 
             // At end of every turn, set HasBeenInPlayAtLeastATurn to true if it is false
             AddEndOfTurnTrigger(turnTaker => GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) != true,

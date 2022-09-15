@@ -10,18 +10,43 @@ namespace DMotM.ChazzPrinceton
     {
         public ArmedDragonLv5CardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
-            SetCardProperty(ModConstants.HasBeenInPlayAtLeastATurn, false);
+        }
+
+        public override IEnumerator Play()
+        {
+            // If this card is played during this hero's play or power phase...
+            if (GameController.ActiveTurnTaker.Equals(TurnTaker) && (GameController.ActiveTurnPhase.IsPlayCard || GameController.ActiveTurnPhase.IsUsePower))
+            {
+                // Player chooses a non-character target in this play area to destroy
+                IEnumerator sadc = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria(card => !card.IsCharacter && card.IsTarget && card.IsInLocation(HeroTurnTaker.PlayArea)),
+                    false, cardSource: GetCardSource());
+
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(sadc);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(sadc);
+                }
+            }
         }
 
         public override void AddTriggers()
         {
             // At start of turn after this card was played, you may play an Armed Dragon Lv7 from your hand, and destroy this card
-            //AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker) && GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) == true,
-            //    StartOfTurnResponse, new List<TriggerType>() { TriggerType.PlayCard, TriggerType.DestroySelf });
+            AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker) && GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) == true,
+                StartOfTurnResponse, new List<TriggerType>() { TriggerType.PlayCard, TriggerType.DestroySelf });
 
             // At end of every turn, set HasBeenInPlayAtLeastATurn to true if it is false
-            AddEndOfTurnTrigger(turnTaker => GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) == false,
+            AddEndOfTurnTrigger(turnTaker => GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) != true,
                 EndOfEveryTurnResponse, TriggerType.AddTrigger);
+
+            // At end of turn, deal 1 target 2 projectile damage
+            AddEndOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker), EndOfTurnResponse, TriggerType.DealDamage);
+
+            // Reset the CardProperty when this card leaves play
+            AddAfterLeavesPlayAction(() => ResetFlagAfterLeavesPlay(ModConstants.HasBeenInPlayAtLeastATurn));
         }
 
         private IEnumerator StartOfTurnResponse(PhaseChangeAction pca)
@@ -72,13 +97,22 @@ namespace DMotM.ChazzPrinceton
         private IEnumerator EndOfEveryTurnResponse(PhaseChangeAction pca)
         {
             // If HasBeenInPlayAtLeastATurn is false...
-            if (GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) == false)
+            if (GetCardPropertyJournalEntryBoolean(ModConstants.HasBeenInPlayAtLeastATurn) != true)
             {
                 // Set it to true because we reach an end of turn
                 SetCardProperty(ModConstants.HasBeenInPlayAtLeastATurn, true);
             }
 
             return null;
+        }
+
+        private IEnumerator EndOfTurnResponse(PhaseChangeAction pca)
+        {
+            // Deal 1 target 2 projectile damage
+            int numTargets = GetPowerNumeral(0, 1);
+            int damageAmount = GetPowerNumeral(1, 2);
+            return GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, Card),
+                    damageAmount, DamageType.Projectile, numTargets, false, 0, cardSource: GetCardSource());
         }
     }
 }
