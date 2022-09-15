@@ -27,7 +27,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>SotM_YGO.ico</ApplicationIcon>
+    <ApplicationIcon>DMotM.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -68,7 +68,7 @@
     <EmbeddedResource Include="DeckLists\ChazzPrincetonDeckList.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SotM_YGO.ico" />
+    <Content Include="DMotM.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MaximillionPegasus\" />
