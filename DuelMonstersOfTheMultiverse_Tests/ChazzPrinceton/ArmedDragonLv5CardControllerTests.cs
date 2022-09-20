@@ -40,7 +40,8 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void Play_DuringYourStartOfTurn_DoesNotDestroy()
+        public void Play_DuringYourStartDrawCardEndPhases_DoesNotDestroy(
+            [Values(Phase.Start, Phase.DrawCard, Phase.End)] Phase phase)
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -59,8 +60,8 @@ namespace DMotMTests.ChazzPrinceton
             Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
 
-            // Enter start of turn
-            GoToStartOfTurn(ChazzPrinceton);
+            // Enter chazz phase
+            GoToTurnTakerPhase(ChazzPrinceton, phase);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -79,7 +80,8 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void Play_DuringYourPlayCardPhaseWithNoOtherTargets_DestroysSelfNoDecision()
+        public void Play_DuringYourPlayCardUsePowerPhasesWithNoOtherTargets_DestroysSelfNoDecision(
+            [Values(Phase.PlayCard, Phase.UsePower)] Phase phase)
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -98,8 +100,8 @@ namespace DMotMTests.ChazzPrinceton
             Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
 
-            // Enter the play card phase
-            GoToPlayCardPhase(ChazzPrinceton);
+            // Enter chazz phase
+            GoToTurnTakerPhase(ChazzPrinceton, phase);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -118,7 +120,8 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void Play_DuringYourPlayCardPhaseWithOtherTargets_DestroysTargetWithDecision()
+        public void Play_DuringYourPlayCardUsePowerPhasesWithOtherTargets_DestroysTargetWithDecision(
+            [Values(Phase.PlayCard, Phase.UsePower)] Phase phase)
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -141,8 +144,8 @@ namespace DMotMTests.ChazzPrinceton
             Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
 
-            // Enter the play card phase
-            GoToPlayCardPhase(ChazzPrinceton);
+            // Enter chazz phase
+            GoToTurnTakerPhase(ChazzPrinceton, phase);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -168,96 +171,8 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void Play_DuringYourUsePowerPhaseWithNoOtherTargets_DestroysSelfNoDecision()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play ABC Union
-            Card abcUnion = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.AbcUnion);
-            AssertIsInPlayAndNotUnderCard(abcUnion);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter the use power phase
-            GoToUsePowerPhase(ChazzPrinceton);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 destroyed itself
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(abcUnion);
-            AssertInTrash(ChazzPrinceton, armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringYourUsePowerPhaseWithOtherTargets_DestroysTargetWithDecision()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play ABC Union
-            Card abcUnion = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.AbcUnion);
-            AssertIsInPlayAndNotUnderCard(abcUnion);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter the use power phase
-            GoToUsePowerPhase(ChazzPrinceton);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Store the expected choices for the player to destroy
-            IEnumerable<Card> includedCards = new List<Card> { vTigerJet, armedDragonLv5 };
-            IEnumerable<Card> notIncludedCards = new List<Card> { ChazzPrinceton.CharacterCard, abcUnion };
-
-            // Assert that we get the correct choices
-            // We will choose to destroy V Tiger jet
-            AssertNextDecisionChoices(includedCards, notIncludedCards);
-            DecisionSelectCard = vTigerJet;
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 destroyed V Tiger Jet
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(abcUnion);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-            AssertInTrash(ChazzPrinceton, vTigerJet);
-        }
-
-        [Test]
-        public void Play_DuringYourDrawCardPhase_DoesNotDestroy()
+        public void Play_DuringOtherPlayerTurn_DoesNotDestroy(
+            [ValueSource(nameof(GetTestTurnPhases))] Phase phase)
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -276,242 +191,8 @@ namespace DMotMTests.ChazzPrinceton
             Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
 
-            // Enter draw card phase
-            GoToDrawCardPhase(ChazzPrinceton);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 did not destroy
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringYourEndOfTurn_DoesNotDestroy()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter end of turn
-            GoToEndOfTurn(ChazzPrinceton);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 did not destroy
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringOtherStartOfTurn_DoesNotDestroy()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter start of turn
-            GoToStartOfTurn(legacy);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 did not destroy
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringOtherPlayCardPhase_DoesNotDestroy()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter the play card phase
-            GoToPlayCardPhase(legacy);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 did not destroy
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringOtherUsePowerPhase_DoesNotDestroy()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter the use power phase
-            GoToUsePowerPhase(legacy);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 did not destroy
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringOtherDrawCardPhase_DoesNotDestroy()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter the draw card phase
-            GoToDrawCardPhase(legacy);
-
-            // Store the cards currently in hand
-            QuickHandStorage(ChazzPrinceton);
-
-            // Assert that no decision will be presented to the player
-            AssertNoDecision();
-
-            // Play Armed Dragon Lv5
-            PlayCardFromHand(ChazzPrinceton, armedDragonLv5.Identifier);
-
-            // Assert that Armed Dragon Lv5 did not destroy
-            QuickHandCheck(-1);
-            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-        }
-
-        [Test]
-        public void Play_DuringOtherEndOfTurn_DoesNotDestroy()
-        {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Move all Cards from Chazz Princeton's hand into the deck
-            MoveAllCardsFromHandToDeck(ChazzPrinceton);
-            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
-
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
-            // Put Armed Dragon Lv5 into hand
-            Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
-            AssertInHand(ChazzPrinceton, armedDragonLv5);
-
-            // Enter end of turn
-            GoToEndOfTurn(legacy);
+            // Enter legacy phase
+            GoToTurnTakerPhase(legacy, phase);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -876,11 +557,16 @@ namespace DMotMTests.ChazzPrinceton
             Card regressionTurret = PlayCard(luminary, "RegressionTurret");
             AssertIsInPlayAndNotUnderCard(regressionTurret);
 
+            // Play Traffic Pileup
+            Card trafficPileup = PlayCard(FindEnvironment(), "TrafficPileup");
+            AssertIsInPlayAndNotUnderCard(trafficPileup);
+
+            // Play Elemental Redistributor
+            Card elementalRedistributor = PlayCard(FindEnvironment(), "ElementalRedistributor");
+            AssertIsInPlayAndNotUnderCard(elementalRedistributor);
+
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
-
-            // Store villain character current hit points
-            int villainHP = baron.CharacterCard.HitPoints.Value;
 
             // Store the expected target choices
             IEnumerable<Card> includedCards = GameController.FindTargetsInPlay();
@@ -912,8 +598,12 @@ namespace DMotMTests.ChazzPrinceton
             AssertHitPoints(luminary.CharacterCard, luminary.CharacterCard.MaximumHitPoints.Value);
             AssertHitPoints(regressionTurret, regressionTurret.MaximumHitPoints.Value);
 
+            AssertHitPoints(trafficPileup, trafficPileup.MaximumHitPoints.Value);
+
+            AssertHitPoints(elementalRedistributor, elementalRedistributor.MaximumHitPoints.Value);
+
             // Assert that the villain character took 2 damage
-            Assert.That(baron.CharacterCard.HitPoints, Is.EqualTo(villainHP - 2));
+            AssertHitPoints(baron.CharacterCard, baron.CharacterCard.MaximumHitPoints.Value - 2);
         }
 
         [Test]
@@ -952,11 +642,16 @@ namespace DMotMTests.ChazzPrinceton
             Card regressionTurret = PlayCard(luminary, "RegressionTurret");
             AssertIsInPlayAndNotUnderCard(regressionTurret);
 
+            // Play Traffic Pileup
+            Card trafficPileup = PlayCard(FindEnvironment(), "TrafficPileup");
+            AssertIsInPlayAndNotUnderCard(trafficPileup);
+
+            // Play Elemental Redistributor
+            Card elementalRedistributor = PlayCard(FindEnvironment(), "ElementalRedistributor");
+            AssertIsInPlayAndNotUnderCard(elementalRedistributor);
+
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
-
-            // Store villain character current hit points
-            int villainHP = baron.CharacterCard.HitPoints.Value;
 
             // Assert that there is no choice of target to deal damage to
             AssertNoDecision();
@@ -982,7 +677,10 @@ namespace DMotMTests.ChazzPrinceton
             AssertHitPoints(luminary.CharacterCard, luminary.CharacterCard.MaximumHitPoints.Value);
             AssertHitPoints(regressionTurret, regressionTurret.MaximumHitPoints.Value);
 
+            AssertHitPoints(trafficPileup, trafficPileup.MaximumHitPoints.Value);
+
             AssertHitPoints(baron.CharacterCard, baron.CharacterCard.MaximumHitPoints.Value);
+            AssertHitPoints(elementalRedistributor, elementalRedistributor.MaximumHitPoints.Value);
         }
     }
 }

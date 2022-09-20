@@ -248,6 +248,34 @@ namespace Handelabra.Sentinels.UnitTest
         // Mod Villains
         protected TurnTakerController MaximillionPegasus { get { return FindVillain(MaximillionPegasusConstants.Villain); } }
 
+        // When I need to test something during all the possible turn phases, I use this list
+        protected static IEnumerable<Phase> GetTestTurnPhases()
+        {
+            return new List<Phase> { Phase.Start, Phase.PlayCard, Phase.UsePower, Phase.DrawCard, Phase.End };
+        }
+
+        protected void GoToTurnTakerPhase(TurnTakerController ttc, Phase phase)
+        {
+            switch (phase)
+            {
+                case Phase.Start:
+                    GoToStartOfTurn(ttc);
+                    break;
+                case Phase.PlayCard:
+                    GoToPlayCardPhase(ttc);
+                    break;
+                case Phase.UsePower:
+                    GoToUsePowerPhase(ttc);
+                    break;
+                case Phase.DrawCard:
+                    GoToDrawCardPhase(ttc);
+                    break;
+                case Phase.End:
+                    GoToEndOfTurn(ttc);
+                    break;
+            }
+        }
+
         // ===========================================================================================================================================================================================
         protected List<TurnPhase> turnPhaseList = null;
 
