@@ -21,14 +21,8 @@ namespace DMotM.ChazzPrinceton
                 IEnumerator sadc = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria(card => !card.IsCharacter && card.IsTarget && card.IsInLocation(HeroTurnTaker.PlayArea)),
                     false, cardSource: GetCardSource());
 
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(sadc);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(sadc);
-                }
+                if (UseUnityCoroutines) { yield return GameController.StartCoroutine(sadc); }
+                else { GameController.ExhaustCoroutine(sadc); }
             }
         }
 
@@ -67,14 +61,8 @@ namespace DMotM.ChazzPrinceton
                 IEnumerator sapcfh = SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
                     cardCriteria: new LinqCardCriteria(card => card.Identifier.Equals(ChazzPrincetonConstants.ArmedDragonLv7), "Armed Dragon Lv7"));
 
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(sapcfh);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(sapcfh);
-                }
+                if (UseUnityCoroutines) { yield return GameController.StartCoroutine(sapcfh); }
+                else { GameController.ExhaustCoroutine(sapcfh); }
 
                 // If Armed Dragon Lv7 was played...
                 if (DidPlayCards(storedResults))
@@ -82,14 +70,8 @@ namespace DMotM.ChazzPrinceton
                     // Destroy this card
                     IEnumerator dc = GameController.DestroyCard(HeroTurnTakerController, Card, showOutput: true, cardSource: GetCardSource());
 
-                    if (UseUnityCoroutines)
-                    {
-                        yield return GameController.StartCoroutine(dc);
-                    }
-                    else
-                    {
-                        GameController.ExhaustCoroutine(dc);
-                    }
+                    if (UseUnityCoroutines) { yield return GameController.StartCoroutine(dc); }
+                    else { GameController.ExhaustCoroutine(dc); }
                 }
             }
         }

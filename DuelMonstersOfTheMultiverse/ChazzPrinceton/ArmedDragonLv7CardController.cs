@@ -58,14 +58,8 @@ namespace DMotM.ChazzPrinceton
                 IEnumerator sapcfh = SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
                     cardCriteria: new LinqCardCriteria(card => card.Identifier.Equals(ChazzPrincetonConstants.ArmedDragonLv10), "Armed Dragon Lv10"));
 
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(sapcfh);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(sapcfh);
-                }
+                if (UseUnityCoroutines) { yield return GameController.StartCoroutine(sapcfh); }
+                else { GameController.ExhaustCoroutine(sapcfh); }
 
                 // If Armed Dragon Lv10 was played...
                 if (DidPlayCards(storedResults))
@@ -73,14 +67,8 @@ namespace DMotM.ChazzPrinceton
                     // Destroy this card
                     IEnumerator dc = GameController.DestroyCard(HeroTurnTakerController, Card, showOutput: true, cardSource: GetCardSource());
 
-                    if (UseUnityCoroutines)
-                    {
-                        yield return GameController.StartCoroutine(dc);
-                    }
-                    else
-                    {
-                        GameController.ExhaustCoroutine(dc);
-                    }
+                    if (UseUnityCoroutines) { yield return GameController.StartCoroutine(dc); }
+                    else { GameController.ExhaustCoroutine(dc); }
                 }
             }
         }
