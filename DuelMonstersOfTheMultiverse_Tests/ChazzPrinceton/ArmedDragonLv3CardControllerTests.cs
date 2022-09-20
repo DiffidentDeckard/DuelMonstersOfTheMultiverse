@@ -40,7 +40,7 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void AtStartOfYourSameTurn_WithLv5InHand_DoesNothing()
+        public void AtYourSameStartOfTurn_WithLv5InHand_DoesNothing()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -98,7 +98,7 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void AtStartOfOtherTurn_WithLv5InHand_DoesNothing()
+        public void AtOtherStartOfTurn_WithLv5InHand_DoesNothing()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -159,7 +159,7 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void AtStartOfYourNextTurn_WithNoLv5InHand_DoesNothing()
+        public void AtYourNextStartOfTurn_WithNoLv5InHand_DoesNothing()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -216,7 +216,7 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void AtStartOfYourNextTurn_WithLv5InHandButChooseNotToPlay_DoesNothing()
+        public void AtYourNextStartOfTurn_WithLv5InHandButChooseNotToPlay_DoesNothing()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -283,7 +283,7 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void AtStartOfYourNextTurn_WithLv5InHandAndChooseToPlay_PlaysLv5AndDestroysSelf()
+        public void AtYourNextStartOfTurn_WithLv5InHandAndChooseToPlay_PlaysLv5AndDestroysSelf()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");

@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChazzPrinceton\ArmedDragonLv7CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv5CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv3CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ChazzPrincetonCharacterCardControllerTests.cs" />
