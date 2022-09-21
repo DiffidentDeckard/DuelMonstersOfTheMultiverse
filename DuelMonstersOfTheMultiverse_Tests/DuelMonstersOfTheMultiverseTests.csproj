@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChazzPrinceton\ArmedDragonLv10CardControllerTests.cs" />
+    <Compile Include="ChazzPrinceton\VTigerJetCardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv7CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv5CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv3CardControllerTests.cs" />
