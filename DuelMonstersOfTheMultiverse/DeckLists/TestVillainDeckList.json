@@ -1,0 +1,75 @@
+{
+  "name": "Test Villain",
+  "kind": "Villain",
+  "initialCardIdentifiers": [
+    "TestVillainCharacter"
+  ],
+  "cards": [
+    {
+      "identifier": "TestVillainCharacter",
+      "count": 1,
+      "title": "Test Villain",
+      "keywords": [
+        "villain"
+      ],
+      "body": "Test Villain Body",
+      "backgroundColor": "D99FC5",
+      "foilBackgroundColor": "CD96C0",
+      "character": true,
+      "hitpoints": 42,
+      "setup": [
+        "Test Villain Setup"
+      ],
+      "gameplay": [
+        "Test Villain Gameplay"
+      ],
+      "advanced": "Test Villain Advanced",
+      "flippedHitpoints": 69,
+      "flippedBody": "Test Villain Flipped Body",
+      "flippedGameplay": [
+        "Test Villain Flipped Gameplay"
+      ],
+      "flippedAdvanced": "Test Villain Flipped Advanced",
+      "flippedIcons": [
+      ],
+      "flippedAdvancedIcons": [
+      ],
+      "difficulty": 1,
+      "openingLines": {
+        "default": "Test Villain Opening Line"
+      }
+    },
+    {
+      "identifier": "TestVillainTarget",
+      "title": "Test Villain Target",
+      "count": 3,
+      "hitpoints": 10,
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "TestVillainOngoing",
+      "title": "Test Villain Ongoing",
+      "count": 3,
+      "keywords": [ "ongoing" ],
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "TestVillainEquipment",
+      "title": "Test Villain Equipment",
+      "count": 3,
+      "keywords": [ "equipment" ],
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "TestVillainOneShot",
+      "title": "Test Villain One-Shot",
+      "count": 3,
+      "keywords": [ "one-shot" ],
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    }
+  ]
+}

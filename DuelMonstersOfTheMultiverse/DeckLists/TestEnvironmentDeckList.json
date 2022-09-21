@@ -1,0 +1,40 @@
+{
+  "name": "TestEnvironment",
+  "kind": "Environment",
+  "backgroundColor": "FB5455",
+  "difficulty": 1,
+  "cards": [
+    {
+      "identifier": "TestEnvironmentTarget",
+      "title": "Test Environment Target",
+      "count": 3,
+      "hitpoints": 10,
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "TestEnvironmentOngoing",
+      "title": "Test Environment Ongoing",
+      "count": 3,
+      "keywords": [ "ongoing" ],
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "TestEnvironmentEquipment",
+      "title": "Test Environment Equipment",
+      "count": 3,
+      "keywords": [ "equipment" ],
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    },
+    {
+      "identifier": "TestEnvironmentOneShot",
+      "title": "Test Environment One-Shot",
+      "count": 3,
+      "keywords": [ "one-shot" ],
+      "body": "Not Yet Implemeted",
+      "flavorText": "flavor text"
+    }
+  ]
+}
