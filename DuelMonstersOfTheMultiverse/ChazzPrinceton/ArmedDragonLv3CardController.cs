@@ -71,7 +71,7 @@ namespace DMotM.ChazzPrinceton
                 SetCardProperty(ModConstants.HasBeenInPlayAtLeastATurn, true);
             }
 
-            return null;
+            yield return null;
         }
 
         private IEnumerator DestroyedResponse(DestroyCardAction dca)

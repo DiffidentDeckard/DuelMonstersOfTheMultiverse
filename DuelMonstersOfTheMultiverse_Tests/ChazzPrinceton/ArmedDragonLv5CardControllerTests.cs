@@ -26,7 +26,7 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void IsATarget()
+        public void IsATargetWith5MaxHP()
         {
             // Setup a sample game with Chazz Princeton, the villain and environment don't matter
             SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
@@ -35,8 +35,11 @@ namespace DMotMTests.ChazzPrinceton
             Card armedDragonLv5 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv5);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
 
-            // Assert that Armed Dragon Lv5 has the Armed keyword
+            // Assert that Armed Dragon Lv5 is a target
             AssertIsTarget(armedDragonLv5);
+
+            // Assert that the Maximum Hit Points is equal to 5
+            AssertMaximumHitPoints(armedDragonLv5, 5);
         }
 
         [Test]

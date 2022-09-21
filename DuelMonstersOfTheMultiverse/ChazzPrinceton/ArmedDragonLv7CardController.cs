@@ -82,7 +82,7 @@ namespace DMotM.ChazzPrinceton
                 SetCardProperty(ModConstants.HasBeenInPlayAtLeastATurn, true);
             }
 
-            return null;
+            yield return null;
         }
 
         private IEnumerator EndOfTurnResponse(PhaseChangeAction pca)
