@@ -60,7 +60,6 @@
     <Compile Include="ChazzPrinceton\YDragonHeadCardController.cs" />
     <Compile Include="ChazzPrinceton\YouGoByeByeCardController.cs" />
     <Compile Include="ChazzPrinceton\ZMetalTankCardController.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="ModConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,23 +67,12 @@
     <EmbeddedResource Include="DeckLists\ChazzPrincetonDeckList.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DMotM.ico" />
+    <EmbeddedResource Include="DMotM.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MaximillionPegasus\" />
-    <Folder Include="TestHero1\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DeckLists\TestHero1DeckList.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DeckLists\TestHero2DeckList.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DeckLists\TestVillainDeckList.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DeckLists\TestEnvironmentDeckList.json" />
+    <PackageReference Include="DiffidentDeckard_SotMBaseMod">
+      <Version>1.0.8300.28087</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

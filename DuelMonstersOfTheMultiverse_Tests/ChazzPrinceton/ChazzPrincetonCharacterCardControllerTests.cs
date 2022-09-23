@@ -1,23 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DeckardBaseMod;
 using DMotM;
 using DMotM.ChazzPrinceton;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
-using Handelabra.Sentinels.UnitTest;
 using NUnit.Framework;
 
 namespace DMotMTests.ChazzPrinceton
 {
     [TestFixture]
-    public class ChazzPrincetonCharacterCardControllerTests : BaseTest
+    public class ChazzPrincetonCharacterCardControllerTests : ChazzPrincetonBaseTest
     {
         [Test]
         public void IsHeroCharacterCard()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
-
             // Assert that Chazz Princeton is a Hero Character Card
             Assert.That(ChazzPrinceton.CharacterCard.IsHeroCharacterCard);
         }
@@ -25,12 +22,6 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void OnSetup_HasCorrectHP()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
-
-            // Assert that there are exactly 3 turn takers
-            Assert.That(GameController.TurnTakerControllers.Count(), Is.EqualTo(3));
-
             // Assert that Chazz Princeton exists in this game
             Assert.That(ChazzPrinceton, Is.Not.Null);
 
@@ -47,10 +38,7 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void UsePower_WhenNoTargetsInPlayArea_DrawsCard()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
+            // Go to the Chazz Princeton's User Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
 
             // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
@@ -77,10 +65,7 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void UsePower_WhenTargetInPlayAreaButNoValidCardInHand_DrawsCard()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
+            // Go to the Chazz Princeton's User Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
 
             // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
@@ -115,10 +100,7 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void UsePower_WhenValidAndSelectPlayCard_PresentsCorrectOptions()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
+            // Go to the Chazz Princeton's User Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
 
             // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
@@ -173,10 +155,7 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void UsePower_WhenValidAndSelectDrawCard_DrawsCard()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
+            // Go to the Chazz Princeton's User Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
 
             // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
@@ -225,81 +204,65 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void UsePower_Incapacitated_AllowsHeroToPlayCard()
         {
-            // Setup a sample game with Chazz Princeton and some other heroes, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Haka", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
             // Incapacitate Chazz Princeton
-            DealDamage(baron, ChazzPrinceton, 9999, DamageType.Energy);
+            DealDamage(TestVillain, ChazzPrinceton, 9999, DamageType.Energy);
             AssertIncapacitated(ChazzPrinceton);
             GoToUseIncapacitatedAbilityPhase(ChazzPrinceton);
 
-            // Put the card that will be played into Legacy's hand
-            string theLegacyRing = "TheLegacyRing";
-            PutInHand(legacy, theLegacyRing);
-            AssertInHand(legacy, theLegacyRing);
+            // Put the card that will be played into TestHero1's hand
+            PutInHand(TestHero1, TestHero1Constants.TestHero1OneShot);
+            AssertInHand(TestHero1, TestHero1Constants.TestHero1OneShot);
 
             // Prepare which turnTakers should be shown in the choices, and which should not
-            IEnumerable<TurnTakerController> includedTTC = new List<TurnTakerController> { legacy, haka };
-            IEnumerable<TurnTakerController> notIncludedTTC = new List<TurnTakerController> { baron, ChazzPrinceton };
+            IEnumerable<TurnTakerController> includedTTC = new List<TurnTakerController> { TestHero1, TestHero2 };
+            IEnumerable<TurnTakerController> notIncludedTTC = new List<TurnTakerController> { TestVillain, ChazzPrinceton, TestEnvironment };
 
-            // Assert the possible choices for the player, we'll select Legacy
+            // Assert the possible choices for the player, we'll select TestHero1
             AssertNextDecisionChoices(includedTTC, notIncludedTTC);
-            DecisionSelectTurnTaker = legacy.HeroTurnTaker;
+            DecisionSelectTurnTaker = TestHero1.HeroTurnTaker;
 
-            // Assert that Chazz Princeton's incap power allows Legacy to play The Legacy Ring
-            AssertIncapLetsHeroPlayCard(ChazzPrinceton, 0, legacy, theLegacyRing);
+            // Assert that Chazz Princeton's incap power allows TestHero1 to play a card
+            AssertIncapLetsHeroPlayCard(ChazzPrinceton, 0, TestHero1, TestHero1Constants.TestHero1OneShot);
         }
 
         [Test]
         public void UsePower_Incapacitated_AllowsHeroToUsePower()
         {
-            // Setup a sample game with Chazz Princeton and some other heroes, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Haka", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
             // Incapacitate Chazz Princeton
-            DealDamage(baron, ChazzPrinceton, 9999, DamageType.Energy);
+            DealDamage(TestVillain, ChazzPrinceton, 9999, DamageType.Energy);
             AssertIncapacitated(ChazzPrinceton);
             GoToUseIncapacitatedAbilityPhase(ChazzPrinceton);
 
             // Prepare which turnTakers should be shown in the choices, and which should not
-            IEnumerable<TurnTakerController> includedTTC = new List<TurnTakerController> { legacy, haka };
-            IEnumerable<TurnTakerController> notIncludedTTC = new List<TurnTakerController> { baron, ChazzPrinceton };
+            IEnumerable<TurnTakerController> includedTTC = new List<TurnTakerController> { TestHero1, TestHero2 };
+            IEnumerable<TurnTakerController> notIncludedTTC = new List<TurnTakerController> { TestVillain, ChazzPrinceton, TestEnvironment };
 
-            // Assert the possible choices for the player, we'll select Legacy
+            // Assert the possible choices for the player, we'll select TestHero1
             AssertNextDecisionChoices(includedTTC, notIncludedTTC);
-            DecisionSelectTurnTaker = legacy.HeroTurnTaker;
+            DecisionSelectTurnTaker = TestHero1.HeroTurnTaker;
 
-            // Assert that Chazz Princeton's incap power allows Legacy to use a power
-            AssertIncapLetsHeroUsePower(ChazzPrinceton, 1, legacy);
+            // Assert that Chazz Princeton's incap power allows TestHero1 to use a power
+            AssertIncapLetsHeroUsePower(ChazzPrinceton, 1, TestHero1);
         }
 
         [Test]
         public void UsePower_Incapacitated_AllowsHeroToDrawCard()
         {
-            // Setup a sample game with Chazz Princeton and some other heroes, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Haka", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
             // Incapacitate Chazz Princeton
-            DealDamage(baron, ChazzPrinceton, 9999, DamageType.Energy);
+            DealDamage(TestVillain, ChazzPrinceton, 9999, DamageType.Energy);
             AssertIncapacitated(ChazzPrinceton);
             GoToUseIncapacitatedAbilityPhase(ChazzPrinceton);
 
             // Prepare which turnTakers should be shown in the choices, and which should not
-            IEnumerable<TurnTakerController> includedTTC = new List<TurnTakerController> { legacy, haka };
-            IEnumerable<TurnTakerController> notIncludedTTC = new List<TurnTakerController> { baron, ChazzPrinceton };
+            IEnumerable<TurnTakerController> includedTTC = new List<TurnTakerController> { TestHero1, TestHero2 };
+            IEnumerable<TurnTakerController> notIncludedTTC = new List<TurnTakerController> { TestVillain, ChazzPrinceton, TestEnvironment };
 
-            // Assert the possible choices for the player, we'll select Legacy
+            // Assert the possible choices for the player, we'll select TestHero1
             AssertNextDecisionChoices(includedTTC, notIncludedTTC);
-            DecisionSelectTurnTaker = legacy.HeroTurnTaker;
+            DecisionSelectTurnTaker = TestHero1.HeroTurnTaker;
 
-            // Assert that Chazz Princeton's incap power allows Legacy to draw 1 card
-            AssertIncapLetsHeroDrawCard(ChazzPrinceton, 2, legacy, 1);
+            // Assert that Chazz Princeton's incap power allows TestHero1 to draw 1 card
+            AssertIncapLetsHeroDrawCard(ChazzPrinceton, 2, TestHero1, 1);
         }
     }
 }

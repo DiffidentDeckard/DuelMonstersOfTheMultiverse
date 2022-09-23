@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props')" />
-  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
   <PropertyGroup>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
     <NuGetPackageImportStamp>
@@ -33,33 +31,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.12.0\lib\net35\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="EngineCommon">
       <HintPath>..\..\..\SteamLibrary\steamapps\common\Sentinels of the Multiverse\Sentinels_Data\Managed\EngineCommon.dll</HintPath>
     </Reference>
     <Reference Include="SentinelsEngine">
       <HintPath>..\..\..\SteamLibrary\steamapps\common\Sentinels of the Multiverse\Sentinels_Data\Managed\SentinelsEngine.dll</HintPath>
     </Reference>
-    <Reference Include="Troschuetz.Random">
-      <HintPath>..\packages\Troschuetz.Random.5.0.1\lib\net35\Troschuetz.Random.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChazzPrinceton\ArmedDragonLv10CardControllerTests.cs" />
+    <Compile Include="ChazzPrinceton\ChazzPrincetonBaseTest.cs" />
     <Compile Include="ChazzPrinceton\VTigerJetCardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv7CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv5CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ArmedDragonLv3CardControllerTests.cs" />
     <Compile Include="ChazzPrinceton\ChazzPrincetonCharacterCardControllerTests.cs" />
+    <Compile Include="DMotMBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BaseTest.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="RandomGameTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DuelMonstersOfTheMultiverse\DuelMonstersOfTheMultiverse.csproj">
@@ -68,13 +57,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MaximillionPegasus\" />
+    <PackageReference Include="DiffidentDeckard_SotMBaseMod">
+      <Version>1.0.8300.28087</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.13.3</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit3TestAdapter">
+      <Version>4.2.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props'))" />
-  </Target>
 </Project>

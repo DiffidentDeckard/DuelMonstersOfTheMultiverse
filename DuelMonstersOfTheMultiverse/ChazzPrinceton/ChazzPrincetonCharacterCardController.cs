@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DeckardBaseMod;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 
@@ -22,13 +23,13 @@ namespace DMotM.ChazzPrinceton
 
             // Get all the distinct keywords of those targets, ignoring 'limited'
             IEnumerable<string> keywordsInThisPlayArea = targetsInThisPlayArea.SelectMany(card => card.GetKeywords()).Distinct()
-                .Where(keyword => !keyword.Equals(ModConstants.Limited));
+                .Where(keyword => !keyword.Equals(BaseModConstants.Limited));
 
             // Get the list of playable cards in the hero's hand
             IEnumerable<Card> playableCards = GetPlayableCardsInHand(HeroTurnTakerController);
 
             // Get only the playable cards in hand that share a keyword with a target in the play area
-            IEnumerable<Card> keywordSharingCards = playableCards.Where(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea));
+            IEnumerable<Card> keywordSharingCards = playableCards.Where(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea.ToArray()));
 
             // Do we have any valid cards to play?
             bool anyValidCardsToPlay = keywordSharingCards.Any();
@@ -48,7 +49,7 @@ namespace DMotM.ChazzPrinceton
                     {
                         // Ask player to select a valid card to play
                         return SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
-                            cardCriteria: new LinqCardCriteria(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea), "keyword-sharing"));
+                            cardCriteria: new LinqCardCriteria(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea.ToArray()), "keyword-sharing"));
                     }));
 
                 // This is the "draw 1 card" option

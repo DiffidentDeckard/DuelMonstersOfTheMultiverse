@@ -1,22 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using DeckardBaseMod;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
-using Handelabra.Sentinels.UnitTest;
 using NUnit.Framework;
 
 namespace DMotMTests.ChazzPrinceton
 {
     [TestFixture]
-    public class ArmedDragonLv10CardControllerTests : BaseTest
+    public class ArmedDragonLv10CardControllerTests : ChazzPrincetonBaseTest
     {
         [Test]
         public void HasArmedKeyword()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-
             // Put Armed Dragon Lv10 into hand
             Card armedDragonLv10 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
             AssertInHand(ChazzPrinceton, armedDragonLv10);
@@ -28,9 +24,6 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void IsATargetWith10MaxHP()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-
             // Put Armed Dragon Lv10 into hand
             Card armedDragonLv10 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
             AssertInHand(ChazzPrinceton, armedDragonLv10);
@@ -45,11 +38,6 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void DuringYourStartOfTurn_CanBePlayed()
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
             // Put Armed Dragon Lv10 into hand
             Card armedDragonLv10 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
             AssertInHand(ChazzPrinceton, armedDragonLv10);
@@ -76,17 +64,12 @@ namespace DMotMTests.ChazzPrinceton
         public void DuringYourNotStartOfTurnPhases_CannotBePlayed(
             [Values(Phase.PlayCard, Phase.UsePower, Phase.DrawCard, Phase.End)] Phase phase)
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
             // Put Armed Dragon Lv10 into hand
             Card armedDragonLv10 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
             AssertInHand(ChazzPrinceton, armedDragonLv10);
 
-            // Enter chazz phase
-            GoToTurnTakerPhase(ChazzPrinceton, phase);
+            // Enter Chazz Princeton phase
+            GoToPhase(ChazzPrinceton, phase);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -107,17 +90,12 @@ namespace DMotMTests.ChazzPrinceton
         public void DuringOtherPlayerTurn_CannotBePlayed(
             [ValueSource(nameof(GetTestTurnPhases))] Phase phase)
         {
-            // Setup a sample game with Chazz Princeton, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Legacy", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
             // Put Armed Dragon Lv10 into hand
             Card armedDragonLv10 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
             AssertInHand(ChazzPrinceton, armedDragonLv10);
 
-            // Enter legacy phase
-            GoToTurnTakerPhase(legacy, phase);
+            // Enter TestHero1 phase
+            GoToPhase(TestHero1, phase);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -137,16 +115,6 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void AtYourEndOfTurn_WithMultipleTargetsInPlay_DealsDamageWithDecision()
         {
-            // Setup a sample game with Chazz Princeton and Luminary, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Luminary", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
-            IEnumerable<Card> chazzPlayAreaCards =
-                ChazzPrinceton.HeroTurnTaker.GetPlayAreaCards().Where(card => !card.IsHeroCharacterCard);
-            Assert.That(chazzPlayAreaCards, Is.Empty);
-
             // Play Armed Dragon Lv10
             GoToStartOfTurn(ChazzPrinceton);
             Card armedDragonLv10 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
@@ -156,33 +124,17 @@ namespace DMotMTests.ChazzPrinceton
             Card abcUnion = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.AbcUnion);
             AssertIsInPlayAndNotUnderCard(abcUnion);
 
-            // Play All According To Plan
-            Card allAccordingToPlan = PlayCard(luminary, "AllAccordingToPlan");
-            AssertIsInPlayAndNotUnderCard(allAccordingToPlan);
-
-            // Play Regression Turret
-            Card regressionTurret = PlayCard(luminary, "RegressionTurret");
-            AssertIsInPlayAndNotUnderCard(regressionTurret);
-
-            // Play Traffic Pileup
-            Card trafficPileup = PlayCard(FindEnvironment(), "TrafficPileup");
-            AssertIsInPlayAndNotUnderCard(trafficPileup);
-
-            // Play Elemental Redistributor
-            Card elementalRedistributor = PlayCard(FindEnvironment(), "ElementalRedistributor");
-            AssertIsInPlayAndNotUnderCard(elementalRedistributor);
-
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
 
             // Store the expected target choices
             IEnumerable<Card> includedCards = GameController.FindTargetsInPlay();
-            IEnumerable<Card> notIncludedCards = new List<Card> { abcUnion, allAccordingToPlan };
+            IEnumerable<Card> notIncludedCards = GameController.FindCardsWhere(card => card.IsInPlay && !card.IsTarget);
 
             // Assert that we see the expected choices.
-            // We will deal damage to the villain
+            // We will deal damage to the TestVillain
             AssertNextDecisionChoices(includedCards, notIncludedCards);
-            DecisionSelectCard = baron.CharacterCard;
+            DecisionSelectCard = TestVillain.CharacterCard;
 
             // Enter end of turn
             GoToEndOfTurn(ChazzPrinceton);
@@ -194,38 +146,27 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(armedDragonLv10);
             AssertIsInPlayAndNotUnderCard(abcUnion);
 
-            AssertNumberOfCardsInPlay(luminary, 3);
-            AssertIsInPlayAndNotUnderCard(allAccordingToPlan);
-            AssertIsInPlayAndNotUnderCard(regressionTurret);
+            AssertNumberOfCardsInPlay(TestHero1, 4);
+            AssertNumberOfCardsInPlay(TestHero2, 4);
+            AssertNumberOfCardsInPlay(TestVillain, 4);
+            AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
             // Assert that all targets other than the villain are still at max health
-            AssertHitPoints(ChazzPrinceton.CharacterCard, ChazzPrinceton.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(armedDragonLv10, armedDragonLv10.MaximumHitPoints.Value);
+            foreach (Card target in includedCards)
+            {
+                if (target.Identifier.Equals(TestVillainConstants.Villain))
+                {
+                    // Assert that the villain character took 4 damage
+                    AssertHitPoints(TestVillain.CharacterCard, TestVillain.CharacterCard.MaximumHitPoints.Value - 4);
+                }
 
-            AssertHitPoints(luminary.CharacterCard, luminary.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(regressionTurret, regressionTurret.MaximumHitPoints.Value);
-
-            AssertHitPoints(trafficPileup, trafficPileup.MaximumHitPoints.Value);
-
-            AssertHitPoints(elementalRedistributor, elementalRedistributor.MaximumHitPoints.Value);
-
-            // Assert that the villain character took 4 damage
-            AssertHitPoints(baron.CharacterCard, baron.CharacterCard.MaximumHitPoints.Value - 4);
+                AssertHitPoints(target, target.MaximumHitPoints.Value);
+            }
         }
 
         [Test]
         public void AtOtherEndOfTurn_DealsNoDamage()
         {
-            // Setup a sample game with Chazz Princeton and Luminary, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Luminary", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
-            IEnumerable<Card> chazzPlayAreaCards =
-                ChazzPrinceton.HeroTurnTaker.GetPlayAreaCards().Where(card => !card.IsHeroCharacterCard);
-            Assert.That(chazzPlayAreaCards, Is.Empty);
-
             // Play Armed Dragon Lv10
             GoToStartOfTurn(ChazzPrinceton);
             Card armedDragonLv10 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
@@ -234,22 +175,6 @@ namespace DMotMTests.ChazzPrinceton
             // Play ABC Union
             Card abcUnion = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.AbcUnion);
             AssertIsInPlayAndNotUnderCard(abcUnion);
-
-            // Play All According To Plan
-            Card allAccordingToPlan = PlayCard(luminary, "AllAccordingToPlan");
-            AssertIsInPlayAndNotUnderCard(allAccordingToPlan);
-
-            // Play Regression Turret
-            Card regressionTurret = PlayCard(luminary, "RegressionTurret");
-            AssertIsInPlayAndNotUnderCard(regressionTurret);
-
-            // Play Traffic Pileup
-            Card trafficPileup = PlayCard(FindEnvironment(), "TrafficPileup");
-            AssertIsInPlayAndNotUnderCard(trafficPileup);
-
-            // Play Elemental Redistributor
-            Card elementalRedistributor = PlayCard(FindEnvironment(), "ElementalRedistributor");
-            AssertIsInPlayAndNotUnderCard(elementalRedistributor);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -258,14 +183,14 @@ namespace DMotMTests.ChazzPrinceton
             DecisionDoNotSelectCard = SelectionType.DealDamage;
             GoToEndOfTurn(ChazzPrinceton);
 
-            // just in case any damage happened, restore all to max health
+            // Just in case any damage happened, restore all to max health
             SetAllTargetsToMaxHP();
 
             // Once we have skipped the damage dealing, assert that no more decisions will be presented to player
             AssertNoDecision();
 
-            // Enter end of luminary turn
-            GoToEndOfTurn(luminary);
+            // Enter end of TestHero1 turn
+            GoToEndOfTurn(TestHero1);
 
             // Assert that no changes were made in the hand or play area
             QuickHandCheck(0);
@@ -274,36 +199,21 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(armedDragonLv10);
             AssertIsInPlayAndNotUnderCard(abcUnion);
 
-            AssertNumberOfCardsInPlay(luminary, 3);
-            AssertIsInPlayAndNotUnderCard(allAccordingToPlan);
-            AssertIsInPlayAndNotUnderCard(regressionTurret);
+            AssertNumberOfCardsInPlay(TestHero1, 4);
+            AssertNumberOfCardsInPlay(TestHero2, 4);
+            AssertNumberOfCardsInPlay(TestVillain, 4);
+            AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
             // Assert that all targets including the villain are still at max health
-            AssertHitPoints(ChazzPrinceton.CharacterCard, ChazzPrinceton.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(armedDragonLv10, armedDragonLv10.MaximumHitPoints.Value);
-
-            AssertHitPoints(luminary.CharacterCard, luminary.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(regressionTurret, regressionTurret.MaximumHitPoints.Value);
-
-            AssertHitPoints(trafficPileup, trafficPileup.MaximumHitPoints.Value);
-
-            AssertHitPoints(baron.CharacterCard, baron.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(elementalRedistributor, elementalRedistributor.MaximumHitPoints.Value);
+            foreach (Card target in GameController.FindTargetsInPlay())
+            {
+                AssertHitPoints(target, target.MaximumHitPoints.Value);
+            }
         }
 
         [Test]
         public void Usepower_DiscardsCardAndDealsAllNonHeroTargets4Damage()
         {
-            // Setup a sample game with Chazz Princeton and Luminary, the villain and environment don't matter
-            SetupGameController("BaronBlade", ChazzPrincetonConstants.Deck, "Luminary", "Megalopolis");
-            StartGame();
-            DestroyNonCharacterVillainCards();
-
-            // Assert that there are no cards in Chazz Princeton's play area other than the hero character card
-            IEnumerable<Card> chazzPlayAreaCards =
-                ChazzPrinceton.HeroTurnTaker.GetPlayAreaCards().Where(card => !card.IsHeroCharacterCard);
-            Assert.That(chazzPlayAreaCards, Is.Empty);
-
             // Play Armed Dragon Lv10
             GoToStartOfTurn(ChazzPrinceton);
             Card armedDragonLv10 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv10);
@@ -312,22 +222,6 @@ namespace DMotMTests.ChazzPrinceton
             // Play ABC Union
             Card abcUnion = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.AbcUnion);
             AssertIsInPlayAndNotUnderCard(abcUnion);
-
-            // Play All According To Plan
-            Card allAccordingToPlan = PlayCard(luminary, "AllAccordingToPlan");
-            AssertIsInPlayAndNotUnderCard(allAccordingToPlan);
-
-            // Play Regression Turret
-            Card regressionTurret = PlayCard(luminary, "RegressionTurret");
-            AssertIsInPlayAndNotUnderCard(regressionTurret);
-
-            // Play Traffic Pileup
-            Card trafficPileup = PlayCard(FindEnvironment(), "TrafficPileup");
-            AssertIsInPlayAndNotUnderCard(trafficPileup);
-
-            // Play Elemental Redistributor
-            Card elementalRedistributor = PlayCard(FindEnvironment(), "ElementalRedistributor");
-            AssertIsInPlayAndNotUnderCard(elementalRedistributor);
 
             // Added Armed Dragon Lv3 to our hand just so we have a card to discard
             Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
@@ -352,27 +246,34 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(-1);
             AssertInTrash(armedDragonLv3);
 
-            // Assert that no changes were made in the play area
+            // Assert that no changes were made in the hand or play area
+            QuickHandCheck(0);
+
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
             AssertIsInPlayAndNotUnderCard(armedDragonLv10);
             AssertIsInPlayAndNotUnderCard(abcUnion);
 
-            AssertNumberOfCardsInPlay(luminary, 3);
-            AssertIsInPlayAndNotUnderCard(allAccordingToPlan);
-            AssertIsInPlayAndNotUnderCard(regressionTurret);
+            AssertNumberOfCardsInPlay(TestHero1, 4);
+            AssertNumberOfCardsInPlay(TestHero2, 4);
+            AssertNumberOfCardsInPlay(TestVillain, 4);
+            AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
-            // Assert that all hero targets are at max health
-            AssertHitPoints(ChazzPrinceton.CharacterCard, ChazzPrinceton.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(armedDragonLv10, armedDragonLv10.MaximumHitPoints.Value);
-
-            AssertHitPoints(luminary.CharacterCard, luminary.CharacterCard.MaximumHitPoints.Value);
-            AssertHitPoints(regressionTurret, regressionTurret.MaximumHitPoints.Value);
-
-            // Assert that all non-hero targets took 4 damage
-            AssertHitPoints(trafficPileup, trafficPileup.MaximumHitPoints.Value - 4);
-
-            AssertHitPoints(baron.CharacterCard, baron.CharacterCard.MaximumHitPoints.Value - 4);
-            AssertHitPoints(elementalRedistributor, elementalRedistributor.MaximumHitPoints.Value - 4);
+            // For each target in play...
+            foreach (Card target in GameController.FindTargetsInPlay())
+            {
+                // If it is a Hero target...
+                if (target.IsHero)
+                {
+                    // Assert that this target is at max HP
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
+                // If it is a non-Hero target...
+                else
+                {
+                    // Assert that this target took 4 damage from Armed Dragon Lv10's power
+                    AssertHitPoints(target, target.MaximumHitPoints.Value - 4);
+                }
+            }
         }
     }
 }
