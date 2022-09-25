@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DiffidentDeckard_SotMBaseMod">
-      <Version>1.0.8300.28087</Version>
+      <Version>1.0.8302.36682</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.13.3</Version>
