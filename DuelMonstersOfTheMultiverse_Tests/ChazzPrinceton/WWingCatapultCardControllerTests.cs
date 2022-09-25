@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DeckardBaseMod;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -8,50 +9,50 @@ using NUnit.Framework;
 namespace DMotMTests.ChazzPrinceton
 {
     [TestFixture]
-    public class VTigerJetCardControllerTests : ChazzPrincetonBaseTest
+    public class WWingCatapultCardControllerTests : ChazzPrincetonBaseTest
     {
         [Test]
         public void HasAbcKeyword()
         {
-            // Put V Tiger Jet into hand
-            Card vTigerJet = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertInHand(ChazzPrinceton, vTigerJet);
+            // Put W Wing Catapult into hand
+            Card wWingCatapult = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertInHand(ChazzPrinceton, wWingCatapult);
 
-            // Assert that V Tiger Jet has the ABC keyword
-            AssertCardHasKeyword(vTigerJet, ChazzPrincetonConstants.ABC, false);
+            // Assert that W Wing Catapult  has the ABC keyword
+            AssertCardHasKeyword(wWingCatapult, ChazzPrincetonConstants.ABC, false);
         }
 
         [Test]
         public void IsATargetWith4MaxHP()
         {
-            // Put V Tiger Jet into hand
-            Card vTigerJet = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertInHand(ChazzPrinceton, vTigerJet);
+            // Put W Wing Catapult into hand
+            Card wWingCatapult = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertInHand(ChazzPrinceton, wWingCatapult);
 
-            // Assert that V Tiger Jet is a target
-            AssertIsTarget(vTigerJet);
+            // Assert that W Wing Catapult is a target
+            AssertIsTarget(wWingCatapult);
 
             // Assert that the Maximum Hit Points is equal to 4
-            AssertMaximumHitPoints(vTigerJet, 4);
+            AssertMaximumHitPoints(wWingCatapult, 4);
         }
 
         [Test]
         public void IsLimited()
         {
-            // Put V Tiger Jet into hand
-            Card vTigerJet = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertInHand(ChazzPrinceton, vTigerJet);
+            // Put W Wing Catapult into hand
+            Card wWingCatapult = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertInHand(ChazzPrinceton, wWingCatapult);
 
-            // Assert that V Tiger Jet is Limited
-            Assert.That(vTigerJet.IsLimited, Is.True);
+            // Assert that W Wing Catapult is Limited
+            Assert.That(wWingCatapult.IsLimited, Is.True);
         }
 
         [Test]
         public void AtYourEndOfTurn_WithMultipleTargetsInPlay_DealsDamageWithDecision()
         {
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            // Play W Wing Catapult
+            Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -72,7 +73,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
             AssertNumberOfCardsInPlay(TestHero1, 4);
             AssertNumberOfCardsInPlay(TestHero2, 4);
@@ -99,9 +100,9 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void AtOtherEndOfTurn_DealsNoDamage()
         {
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            // Play W Wing Catapult
+            Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -123,7 +124,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
             AssertNumberOfCardsInPlay(TestHero1, 4);
             AssertNumberOfCardsInPlay(TestHero2, 4);
@@ -138,14 +139,14 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
-        public void UsePower_WithNoWInPlay_DoesNotDestroyOngoing()
+        public void UsePower_WithNoVInPlay_DoesNotDestroyEnvironment()
         {
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            // Play W Wing Catapult
+            Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
-            // Assert W Wing Catapult not in play
-            AssertNotInPlayArea(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            // Assert V Tiger Jet not in play
+            AssertNotInPlayArea(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
 
             // Go to Chazz Princeton Use Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
@@ -157,13 +158,13 @@ namespace DMotMTests.ChazzPrinceton
             AssertNoDecision();
 
             // Use V Tiger Jet power
-            UsePower(vTigerJet);
+            UsePower(wWingCatapult);
 
             // Assert that no changes were made in the hand or play area
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
             AssertNumberOfCardsInPlay(TestHero1, 4);
             AssertNumberOfCardsInPlay(TestHero2, 4);
@@ -174,13 +175,13 @@ namespace DMotMTests.ChazzPrinceton
         [Test]
         public void UsePower_WithWInPlay_DestroysAnOngoing()
         {
-            // Play V Tiger Jet
-            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-
             // Play W Wing Catapult
             Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
+
+            // Play V Tiger Jet
+            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
+            AssertIsInPlayAndNotUnderCard(vTigerJet);
 
             // Go to Chazz Princeton Use Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
@@ -189,33 +190,33 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandStorage(ChazzPrinceton);
 
             // Store the expected target choices
-            IEnumerable<Card> includedCards = GameController.FindCardsWhere(card => card.IsInPlayAndNotUnderCard && card.IsOngoing);
-            IEnumerable<Card> notIncludedCards = GameController.FindCardsWhere(card => card.IsInPlay && !card.IsOngoing);
+            IEnumerable<Card> includedCards = GameController.FindCardsWhere(card => card.IsInPlayAndNotUnderCard && card.IsEnvironment);
+            IEnumerable<Card> notIncludedCards = GameController.FindCardsWhere(card => card.IsInPlay && !card.IsEnvironment);
 
             // Assert that we see the expected choices.
-            // We will destroy the Test Villain Ongoing
+            // We will destroy the Test Environment Equipment
             AssertNextDecisionChoices(includedCards, notIncludedCards);
-            Card testVillainOngoing = GameController.FindCardsWhere(card =>
-                card.IsVillain && card.IsOngoing && card.IsInPlayAndNotUnderCard).First();
-            DecisionDestroyCard = testVillainOngoing;
+            Card testEnvironmentEquipment = GameController.FindCardsWhere(card =>
+                card.IsEnvironment && card.IsEquipment() && card.IsInPlayAndNotUnderCard).First();
+            DecisionDestroyCard = testEnvironmentEquipment;
 
-            // Use V Tiger Jet power
-            UsePower(vTigerJet);
+            // Use W Wing Catapult
+            UsePower(wWingCatapult);
 
-            // Assert that no changes were made in the hand or play area, other than Test Villain
+            // Assert that no changes were made in the hand or play area, other than Test Environment
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
             AssertIsInPlayAndNotUnderCard(vTigerJet);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
+            AssertNumberOfCardsInPlay(TestVillain, 4);
             AssertNumberOfCardsInPlay(TestHero1, 4);
             AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
-            // Assert that we destroyed Test Villain Ongoing
-            AssertNumberOfCardsInPlay(TestVillain, 3);
-            AssertInTrash(testVillainOngoing);
+            // Assert that we destroyed Test Environment Equipment
+            AssertNumberOfCardsInPlay(TestEnvironment, 2);
+            AssertInTrash(testEnvironmentEquipment);
         }
     }
 }
