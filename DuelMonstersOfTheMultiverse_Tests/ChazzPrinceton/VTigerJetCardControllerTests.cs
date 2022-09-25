@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DeckardBaseMod;
+using System.Linq;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -36,6 +36,17 @@ namespace DMotMTests.ChazzPrinceton
         }
 
         [Test]
+        public void IsLimited()
+        {
+            // Put V Tiger Jet into hand
+            Card vTigerJet = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
+            AssertInHand(ChazzPrinceton, vTigerJet);
+
+            // Assert that V Tiger Jet is Limited
+            Assert.That(vTigerJet.IsLimited, Is.True);
+        }
+
+        [Test]
         public void AtYourEndOfTurn_WithMultipleTargetsInPlay_DealsDamageWithDecision()
         {
             // Play V Tiger Jet
@@ -68,16 +79,20 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(TestVillain, 4);
             AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
-            // Assert that all targets other than the villain are still at max health
+            // For each target in play...
             foreach (Card target in includedCards)
             {
-                if (target.Identifier.Equals(TestVillainConstants.Villain))
+                // If it is the villain character card...
+                if (target.IsVillainCharacterCard)
                 {
-                    // Assert that the villain character took 1 damage
+                    // Assert that it took 1 damage
                     AssertHitPoints(TestVillain.CharacterCard, TestVillain.CharacterCard.MaximumHitPoints.Value - 1);
                 }
-
-                AssertHitPoints(target, target.MaximumHitPoints.Value);
+                else
+                {
+                    // Assert that it took 0 damage
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
             }
         }
 
@@ -120,6 +135,82 @@ namespace DMotMTests.ChazzPrinceton
             {
                 AssertHitPoints(target, target.MaximumHitPoints.Value);
             }
+        }
+
+        [Test]
+        public void UsePower_WithNoWInPlay_DoesNotDestroyOngoing()
+        {
+            // Play V Tiger Jet
+            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
+            AssertIsInPlayAndNotUnderCard(vTigerJet);
+
+            // Go to Chazz Princeton Use Power Phase
+            GoToUsePowerPhase(ChazzPrinceton);
+
+            // Store the cards currently in hand
+            QuickHandStorage(ChazzPrinceton);
+
+            // Assert that no decision will be presented to the player
+            AssertNoDecision();
+
+            // Use V Tiger Jet power
+            UsePower(vTigerJet);
+
+            // Assert that no changes were made in the hand or play area
+            QuickHandCheck(0);
+
+            AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
+            AssertIsInPlayAndNotUnderCard(vTigerJet);
+
+            AssertNumberOfCardsInPlay(TestHero1, 4);
+            AssertNumberOfCardsInPlay(TestHero2, 4);
+            AssertNumberOfCardsInPlay(TestVillain, 4);
+            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+        }
+
+        [Test]
+        public void UsePower_WithWInPlay_DestroysAnOngoing()
+        {
+            // Play V Tiger Jet
+            Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
+            AssertIsInPlayAndNotUnderCard(vTigerJet);
+
+            // Play W Wing Catapult
+            Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
+            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+
+            // Go to Chazz Princeton Use Power Phase
+            GoToUsePowerPhase(ChazzPrinceton);
+
+            // Store the cards currently in hand
+            QuickHandStorage(ChazzPrinceton);
+
+            // Store the expected target choices
+            IEnumerable<Card> includedCards = GameController.FindCardsWhere(card => card.IsInPlayAndNotUnderCard && card.IsOngoing);
+            IEnumerable<Card> notIncludedCards = GameController.FindCardsWhere(card => card.IsInPlay && !card.IsOngoing);
+
+            // Assert that we see the expected choices.
+            // We will deal destroy to the TestVillainOngoing
+            Card testVillainOngoing = GameController.FindCardsWhere(card => card.IsVillain && card.IsOngoing && card.IsInPlayAndNotUnderCard).First();
+            AssertNextDecisionChoices(includedCards, notIncludedCards);
+            DecisionDestroyCard = testVillainOngoing;
+
+            // Use V Tiger Jet power
+            UsePower(vTigerJet);
+
+            // Assert that no changes were made in the hand or play area, other than Test Villain
+            QuickHandCheck(0);
+
+            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
+            AssertIsInPlayAndNotUnderCard(vTigerJet);
+
+            AssertNumberOfCardsInPlay(TestHero1, 4);
+            AssertNumberOfCardsInPlay(TestHero2, 4);
+            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+
+            // Assert that we destroyed Test Villain Ongoing
+            AssertNumberOfCardsInPlay(TestVillain, 3);
+            AssertInTrash(testVillainOngoing);
         }
     }
 }

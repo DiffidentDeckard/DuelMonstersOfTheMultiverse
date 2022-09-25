@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DeckardBaseMod;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -151,16 +150,20 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(TestVillain, 4);
             AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
-            // Assert that all targets other than the villain are still at max health
+            // For each target in play...
             foreach (Card target in includedCards)
             {
-                if (target.Identifier.Equals(TestVillainConstants.Villain))
+                // If it is the villain character card...
+                if (target.IsVillainCharacterCard)
                 {
-                    // Assert that the villain character took 4 damage
+                    // Assert that it took 4 damage
                     AssertHitPoints(TestVillain.CharacterCard, TestVillain.CharacterCard.MaximumHitPoints.Value - 4);
                 }
-
-                AssertHitPoints(target, target.MaximumHitPoints.Value);
+                else
+                {
+                    // Assert that it took 0 damage
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
             }
         }
 

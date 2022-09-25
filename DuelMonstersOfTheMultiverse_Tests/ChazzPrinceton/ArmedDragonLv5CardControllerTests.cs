@@ -492,16 +492,20 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(TestVillain, 4);
             AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
-            // Assert that all targets other than the villain are still at max health
+            // For each target in play...
             foreach (Card target in includedCards)
             {
-                if (target.Identifier.Equals(TestVillainConstants.Villain))
+                // If it is the villain character card...
+                if (target.IsVillainCharacterCard)
                 {
-                    // Assert that the villain character took 2 damage
+                    // Assert that it took 2 damage
                     AssertHitPoints(TestVillain.CharacterCard, TestVillain.CharacterCard.MaximumHitPoints.Value - 2);
                 }
-
-                AssertHitPoints(target, target.MaximumHitPoints.Value);
+                else
+                {
+                    // Assert that it took 0 damage
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
             }
         }
 

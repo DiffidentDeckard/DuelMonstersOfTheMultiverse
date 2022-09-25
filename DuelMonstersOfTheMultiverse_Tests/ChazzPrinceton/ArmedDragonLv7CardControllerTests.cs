@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DeckardBaseMod;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -33,6 +32,17 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that the Maximum Hit Points is equal to 7
             AssertMaximumHitPoints(armedDragonLv7, 7);
+        }
+
+        [Test]
+        public void IsLimited()
+        {
+            // Put Armed Dragon Lv7 into hand
+            Card armedDragonLv7 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv7);
+            AssertInHand(ChazzPrinceton, armedDragonLv7);
+
+            // Assert that Armed Dragon Lv7 is Limited
+            Assert.That(armedDragonLv7.IsLimited, Is.True);
         }
 
         [Test]
@@ -431,16 +441,20 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(TestVillain, 4);
             AssertNumberOfCardsInPlay(TestEnvironment, 3);
 
-            // Assert that all targets other than the villain are still at max health
+            // For each target in play...
             foreach (Card target in includedCards)
             {
-                if (target.Identifier.Equals(TestVillainConstants.Villain))
+                // If it is the villain character card...
+                if (target.IsVillainCharacterCard)
                 {
-                    // Assert that the villain character took 3 damage
+                    // Assert that it took 3 damage
                     AssertHitPoints(TestVillain.CharacterCard, TestVillain.CharacterCard.MaximumHitPoints.Value - 3);
                 }
-
-                AssertHitPoints(target, target.MaximumHitPoints.Value);
+                else
+                {
+                    // Assert that it took 0 damage
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
             }
         }
 
