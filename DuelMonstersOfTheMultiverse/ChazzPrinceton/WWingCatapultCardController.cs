@@ -32,10 +32,10 @@ namespace DMotM.ChazzPrinceton
             // Get the list of cards this hero currently has in the play area
             IEnumerable<Card> cardsInPlayArea = HeroTurnTaker.GetPlayAreaCards();
 
-            // Check if any of them are "V-Tiger Jet"
+            // Check if any of them are V-Tiger Jet
             bool vInPlay = cardsInPlayArea.Any(card => card.Identifier.Equals(ChazzPrincetonConstants.VTigerJet));
 
-            // If "V-Tiger Jet" is in play...
+            // If V-Tiger Jet is in play...
             if (vInPlay)
             {
                 // Destroy an Environment

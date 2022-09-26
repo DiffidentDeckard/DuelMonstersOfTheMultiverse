@@ -32,10 +32,10 @@ namespace DMotM.ChazzPrinceton
             // Get the list of cards this hero currently has in the play area
             IEnumerable<Card> cardsInPlayArea = HeroTurnTaker.GetPlayAreaCards();
 
-            // Check if any of them are "W-Wing Catapult"
+            // Check if any of them are W-Wing Catapult
             bool wInPlay = cardsInPlayArea.Any(card => card.Identifier.Equals(ChazzPrincetonConstants.WWingCatapult));
 
-            // If "W-Wing Catapult" is in play...
+            // If W-Wing Catapult is in play...
             if (wInPlay)
             {
                 // Destroy an Ongoing
