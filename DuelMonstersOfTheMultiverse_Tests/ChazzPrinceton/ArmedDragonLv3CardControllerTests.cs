@@ -81,6 +81,9 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(-1);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -133,6 +136,9 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(-1);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -181,6 +187,9 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -239,6 +248,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv3);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -298,6 +310,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
             AssertIsInPlayAndNotUnderCard(xheadCannon);
             AssertInTrash(ChazzPrinceton, armedDragonLv3);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -316,6 +331,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that one card was drawn
             QuickHandCheck(1);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
     }
 }

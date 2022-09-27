@@ -41,7 +41,7 @@ namespace DMotM.ChazzPrinceton
             {
                 // Have all ABC targets gain 1 HP
                 int healAmount = GetPowerNumeral(0, 1);
-                IEnumerator ghp = GameController.GainHP(HeroTurnTakerController, card => card.IsTarget && card.KeywordsContainEx(ChazzPrincetonConstants.ABC),
+                IEnumerator ghp = GameController.GainHP(HeroTurnTakerController, card => card.IsTarget && GameController.CardHasKeywordEx(card, ChazzPrincetonConstants.ABC),
                     healAmount, optional: true, cardSource: GetCardSource());
 
                 if (UseUnityCoroutines) { yield return GameController.StartCoroutine(ghp); }

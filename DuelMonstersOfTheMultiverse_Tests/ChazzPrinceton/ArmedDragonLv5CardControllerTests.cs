@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DeckardBaseMod;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -68,6 +67,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
             AssertIsInPlayAndNotUnderCard(vTigerJet);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -103,6 +105,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(abcUnion);
             AssertInTrash(ChazzPrinceton, armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -149,6 +154,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(abcUnion);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
             AssertInTrash(ChazzPrinceton, vTigerJet);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -184,6 +192,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
             AssertIsInPlayAndNotUnderCard(vTigerJet);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -233,6 +244,9 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(-1);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -289,6 +303,9 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(-1);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -337,6 +354,9 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -395,6 +415,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
             AssertInHand(ChazzPrinceton, armedDragonLv7);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -448,6 +471,9 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(armedDragonLv7);
             AssertInTrash(ChazzPrinceton, armedDragonLv5);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -487,10 +513,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
             AssertIsInPlayAndNotUnderCard(abcUnion);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
 
             // For each target in play...
             foreach (Card target in includedCards)
@@ -543,10 +567,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(armedDragonLv5);
             AssertIsInPlayAndNotUnderCard(abcUnion);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
 
             // Assert that all targets including the villain are still at max health
             foreach (Card target in GameController.FindTargetsInPlay())

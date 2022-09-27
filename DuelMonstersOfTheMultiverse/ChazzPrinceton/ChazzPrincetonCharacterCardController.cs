@@ -23,23 +23,23 @@ namespace DMotM.ChazzPrinceton
 
             // Get all the distinct keywords of those targets, ignoring 'limited'
             IEnumerable<string> keywordsInThisPlayArea = targetsInThisPlayArea.SelectMany(card => card.GetKeywords()).Distinct()
-                .Where(keyword => !keyword.Equals(BaseModConstants.Limited));
+                .Where(keyword => !keyword.Equals(CardDefinition.KEYWORD_LIMITED));
 
             // Get the list of playable cards in the hero's hand
             IEnumerable<Card> playableCards = GetPlayableCardsInHand(HeroTurnTakerController);
 
             // Get only the playable cards in hand that share a keyword with a target in the play area
-            IEnumerable<Card> keywordSharingCards = playableCards.Where(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea.ToArray()));
+            IEnumerable<Card> keywordSharingCards = playableCards.Where(card => GameController.CardHasAnyOfKeywordsEx(card, keywordsInThisPlayArea));
 
             // Do we have any valid cards to play?
             bool anyValidCardsToPlay = keywordSharingCards.Any();
 
-            // storedResults will store what the player did, so that we can check it to see if we should draw a card
-            List<PlayCardAction> storedResults = new List<PlayCardAction>();
-
             // If there are any valid card options...
             if (anyValidCardsToPlay)
             {
+                // storedResults will store what the player did, so that we can check it to see if we should draw a card
+                List<PlayCardAction> storedResults = new List<PlayCardAction>();
+
                 // We are going to create two options for the player to select from
                 List<Function> functions = new List<Function>();
 
@@ -49,7 +49,7 @@ namespace DMotM.ChazzPrinceton
                     {
                         // Ask player to select a valid card to play
                         return SelectAndPlayCardFromHand(DecisionMaker, storedResults: storedResults, associateCardSource: true,
-                            cardCriteria: new LinqCardCriteria(card => card.KeywordsContainAnyOfEx(keywordsInThisPlayArea.ToArray()), "keyword-sharing"));
+                            cardCriteria: new LinqCardCriteria(card => GameController.CardHasAnyOfKeywordsEx(card, keywordsInThisPlayArea), "keyword-sharing"));
                     }));
 
                 // This is the "draw 1 card" option

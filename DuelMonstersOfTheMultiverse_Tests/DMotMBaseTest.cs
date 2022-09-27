@@ -17,7 +17,7 @@ namespace DMotMTests
         [SetUp]
         public virtual void Setup()
         {
-            SetupTestTargetsOngoingsEquipmentsForAllTestTurnTakers();
+            PlayAllTestKeepersForAllTestTurnTakers();
             StartGame();
         }
     }

@@ -75,10 +75,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
 
             // For each target in play...
             foreach (Card target in includedCards)
@@ -126,10 +124,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
 
             // Assert that all targets including the villain are still at max health
             foreach (Card target in GameController.FindTargetsInPlay())
@@ -166,10 +162,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -196,8 +190,7 @@ namespace DMotMTests.ChazzPrinceton
             // Assert that we see the expected choices.
             // We will destroy the Test Environment Equipment
             AssertNextDecisionChoices(includedCards, notIncludedCards);
-            Card testEnvironmentEquipment = GameController.FindCardsWhere(card =>
-                card.IsEnvironment && card.IsEquipment() && card.IsInPlayAndNotUnderCard).First();
+            Card testEnvironmentEquipment = GameController.FindCardsWhere(card => card.Identifier.Equals(TestEnvironmentConstants.TestEnvironmentEquipment)).First();
             DecisionDestroyCard = testEnvironmentEquipment;
 
             // Use W Wing Catapult
@@ -210,12 +203,10 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(vTigerJet);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers(true, TestEnvironmentConstants.TestEnvironmentEquipment);
 
             // Assert that we destroyed Test Environment Equipment
-            AssertNumberOfCardsInPlay(TestEnvironment, 2);
             AssertInTrash(testEnvironmentEquipment);
         }
     }

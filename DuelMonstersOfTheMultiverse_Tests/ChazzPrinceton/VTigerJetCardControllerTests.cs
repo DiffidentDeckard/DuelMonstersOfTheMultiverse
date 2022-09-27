@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DeckardBaseMod;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -74,10 +75,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(vTigerJet);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
 
             // For each target in play...
             foreach (Card target in includedCards)
@@ -125,10 +124,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(vTigerJet);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
 
             // Assert that all targets including the villain are still at max health
             foreach (Card target in GameController.FindTargetsInPlay())
@@ -165,10 +162,8 @@ namespace DMotMTests.ChazzPrinceton
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
             AssertIsInPlayAndNotUnderCard(vTigerJet);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestVillain, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -209,12 +204,10 @@ namespace DMotMTests.ChazzPrinceton
             AssertIsInPlayAndNotUnderCard(vTigerJet);
             AssertIsInPlayAndNotUnderCard(wWingCatapult);
 
-            AssertNumberOfCardsInPlay(TestHero1, 4);
-            AssertNumberOfCardsInPlay(TestHero2, 4);
-            AssertNumberOfCardsInPlay(TestEnvironment, 3);
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers(true, TestVillainConstants.TestVillainOngoing);
 
             // Assert that we destroyed Test Villain Ongoing
-            AssertNumberOfCardsInPlay(TestVillain, 3);
             AssertInTrash(testVillainOngoing);
         }
     }

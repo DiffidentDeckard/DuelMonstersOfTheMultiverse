@@ -60,6 +60,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that there is 1 more card in the hand than previously
             QuickHandCheck(1);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -95,6 +98,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that there is 1 more card in the hand than previously
             QuickHandCheck(1);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -150,6 +156,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that Ojama Black was played
             AssertIsInPlayAndNotUnderCard(ojamaBlack);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -199,6 +208,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that there is 1 more card in the hand than previously
             QuickHandCheck(1);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -223,6 +235,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that Chazz Princeton's incap power allows TestHero1 to play a card
             AssertIncapLetsHeroPlayCard(ChazzPrinceton, 0, TestHero1, TestHero1Constants.TestHero1OneShot);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -243,6 +258,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that Chazz Princeton's incap power allows TestHero1 to use a power
             AssertIncapLetsHeroUsePower(ChazzPrinceton, 1, TestHero1);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
 
         [Test]
@@ -263,6 +281,9 @@ namespace DMotMTests.ChazzPrinceton
 
             // Assert that Chazz Princeton's incap power allows TestHero1 to draw 1 card
             AssertIncapLetsHeroDrawCard(ChazzPrinceton, 2, TestHero1, 1);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
     }
 }

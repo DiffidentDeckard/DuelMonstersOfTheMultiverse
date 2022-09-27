@@ -30,18 +30,18 @@ namespace DMotM.ChazzPrinceton
         public override void AddTriggers()
         {
             // At start of turn after this card was played, you may play an Armed Dragon Lv7 from your hand, and destroy this card
-            AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker) && GetCardPropertyJournalEntryBoolean(BaseModConstants.HasBeenInPlayAtLeastATurn) == true,
+            AddStartOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker) && GetCardPropertyJournalEntryBoolean(DbmConstants.HasBeenInPlayAtLeastATurn) == true,
                 StartOfTurnResponse, new List<TriggerType>() { TriggerType.PlayCard, TriggerType.DestroySelf });
 
             // At end of every turn, set HasBeenInPlayAtLeastATurn to true if it is false
-            AddEndOfTurnTrigger(turnTaker => GetCardPropertyJournalEntryBoolean(BaseModConstants.HasBeenInPlayAtLeastATurn) != true,
+            AddEndOfTurnTrigger(turnTaker => GetCardPropertyJournalEntryBoolean(DbmConstants.HasBeenInPlayAtLeastATurn) != true,
                 EndOfEveryTurnResponse, TriggerType.AddTrigger);
 
             // At end of turn, deal 1 target 2 projectile damage
             AddEndOfTurnTrigger(turnTaker => turnTaker.Equals(TurnTaker), EndOfTurnResponse, TriggerType.DealDamage);
 
             // Reset the CardProperty when this card leaves play
-            AddAfterLeavesPlayAction(() => ResetFlagAfterLeavesPlay(BaseModConstants.HasBeenInPlayAtLeastATurn));
+            AddAfterLeavesPlayAction(() => ResetFlagAfterLeavesPlay(DbmConstants.HasBeenInPlayAtLeastATurn));
         }
 
         private IEnumerator StartOfTurnResponse(PhaseChangeAction pca)
@@ -80,10 +80,10 @@ namespace DMotM.ChazzPrinceton
         private IEnumerator EndOfEveryTurnResponse(PhaseChangeAction pca)
         {
             // If HasBeenInPlayAtLeastATurn is false...
-            if (GetCardPropertyJournalEntryBoolean(BaseModConstants.HasBeenInPlayAtLeastATurn) != true)
+            if (GetCardPropertyJournalEntryBoolean(DbmConstants.HasBeenInPlayAtLeastATurn) != true)
             {
                 // Set it to true because we reach an end of turn
-                SetCardProperty(BaseModConstants.HasBeenInPlayAtLeastATurn, true);
+                SetCardProperty(DbmConstants.HasBeenInPlayAtLeastATurn, true);
             }
 
             yield return null;
