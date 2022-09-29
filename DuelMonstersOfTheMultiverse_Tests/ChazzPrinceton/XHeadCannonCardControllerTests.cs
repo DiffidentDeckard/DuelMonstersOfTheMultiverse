@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -130,6 +131,138 @@ namespace DMotMTests.ChazzPrinceton
             {
                 AssertHitPoints(target, target.MaximumHitPoints.Value);
             }
+        }
+
+        [Test]
+        public void UsePower_WithNoYInPlay_AppliesNoIrreducibleStatusEffect()
+        {
+            // Play X Head Cannon
+            Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
+            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+
+            // Assert that Y Dragon Head is not in the play area
+            AssertNotInPlayArea(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
+
+            // Go to Chazz Princeton Use Power Phase
+            GoToUsePowerPhase(ChazzPrinceton);
+
+            // Store the cards currently in hand
+            QuickHandStorage(ChazzPrinceton);
+
+            // Assert that no decision will be presented to the player
+            AssertNoDecision();
+
+            // Use X Head Cannon power
+            UsePower(xHeadCannon);
+
+            // Assert that no status effect was applied
+            AssertNumberOfStatusEffectsInPlay(0);
+
+            // Apply a DR status effect to Test Villain
+            ReduceDamageStatusEffect rdse = new ReduceDamageStatusEffect(1);
+            rdse.TargetCriteria.IsSpecificCard = TestVillain.CharacterCard;
+            IEnumerator ase = GameController.AddStatusEffect(rdse, false, TestVillain.CharacterCardController.GetCardSource());
+            GameController.ExhaustCoroutine(ase);
+            AssertNumberOfStatusEffectsInPlay(1);
+
+            // Attempt to deal 2 damage to Test Villain
+            DealDamage(ChazzPrinceton.CharacterCard, TestVillain.CharacterCard, 2, DamageType.Energy);
+
+            // For each target in play...
+            foreach (Card target in GameController.FindTargetsInPlay())
+            {
+                // If it is Test Villain...
+                if (target.IsVillainCharacterCard)
+                {
+                    // Assert that reduced damage was dealt
+                    AssertHitPoints(target, target.MaximumHitPoints.Value - 1);
+                }
+                // For any other target...
+                else
+                {
+                    // Assert that the target is at max health
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
+            }
+
+            // Assert that no changes were made in the hand or play area
+            QuickHandCheck(0);
+
+            AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
+            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
+        }
+
+        [Test]
+        public void UsePower_WithYInPlay_AppliesIrreducibleStatusEffect()
+        {
+            // Play X Head Cannon
+            Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
+            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+
+            // Play Y Dragon Head
+            Card yDragonHead = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
+            AssertIsInPlayAndNotUnderCard(yDragonHead);
+
+            // Go to Chazz Princeton Use Power Phase
+            GoToUsePowerPhase(ChazzPrinceton);
+
+            // Store the cards currently in hand
+            QuickHandStorage(ChazzPrinceton);
+
+            // Store the expected target choices
+            IEnumerable<Card> includedCards = GameController.FindTargetsInPlay();
+            IEnumerable<Card> notIncludedCards = GameController.FindCardsWhere(card => card.IsInPlay && !card.IsTarget);
+
+            // Assert that we see the expected choices.
+            // We will deal damage to the TestVillain
+            AssertNextDecisionChoices(includedCards, notIncludedCards);
+            DecisionSelectCard = TestVillain.CharacterCard;
+
+            // Use X Head Cannon power
+            UsePower(xHeadCannon);
+
+            // Assert that one status effect was applied
+            AssertNumberOfStatusEffectsInPlay(1);
+
+            // Apply a DR status effect to Test Villain
+            ReduceDamageStatusEffect rdse = new ReduceDamageStatusEffect(1);
+            rdse.TargetCriteria.IsSpecificCard = TestVillain.CharacterCard;
+            IEnumerator ase = GameController.AddStatusEffect(rdse, false, TestVillain.CharacterCardController.GetCardSource());
+            GameController.ExhaustCoroutine(ase);
+            AssertNumberOfStatusEffectsInPlay(2);
+
+            // Attempt to deal 2 damage to Test Villain
+            DealDamage(ChazzPrinceton.CharacterCard, TestVillain.CharacterCard, 2, DamageType.Energy);
+
+            // For each target in play...
+            foreach (Card target in GameController.FindTargetsInPlay())
+            {
+                // If it is Test Villain...
+                if (target.IsVillainCharacterCard)
+                {
+                    // Assert that full damage was dealt
+                    AssertHitPoints(target, target.MaximumHitPoints.Value - 2);
+                }
+                // For any other target...
+                else
+                {
+                    // Assert that the target is at max health
+                    AssertHitPoints(target, target.MaximumHitPoints.Value);
+                }
+            }
+
+            // Assert that no changes were made in the hand or play area
+            QuickHandCheck(0);
+
+            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
+            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertIsInPlayAndNotUnderCard(yDragonHead);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
     }
 }
