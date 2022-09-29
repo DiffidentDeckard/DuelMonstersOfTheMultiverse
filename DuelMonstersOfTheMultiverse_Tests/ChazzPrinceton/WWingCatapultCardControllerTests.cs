@@ -52,7 +52,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play W Wing Catapult
             Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -73,7 +73,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -100,7 +100,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play W Wing Catapult
             Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -122,7 +122,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -139,7 +139,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play W Wing Catapult
             Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Assert V Tiger Jet not in play
             AssertNotInPlayArea(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
@@ -160,7 +160,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -171,11 +171,11 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play W Wing Catapult
             Card wWingCatapult = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.WWingCatapult);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Play V Tiger Jet
             Card vTigerJet = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.VTigerJet);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, vTigerJet);
 
             // Go to Chazz Princeton Use Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
@@ -200,8 +200,8 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(vTigerJet);
-            AssertIsInPlayAndNotUnderCard(wWingCatapult);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, vTigerJet);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, wWingCatapult);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers(true, TestEnvironmentConstants.TestEnvironmentEquipment);

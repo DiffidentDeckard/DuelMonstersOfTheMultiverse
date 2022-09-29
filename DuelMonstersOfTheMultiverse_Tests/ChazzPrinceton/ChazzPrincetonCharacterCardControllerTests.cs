@@ -77,7 +77,7 @@ namespace DMotMTests.ChazzPrinceton
 
             // Play Armed Dragon Lv3
             Card armedDragonLv3 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Move all Cards from Chazz Princeton's hand into the deck
             MoveAllCardsFromHandToDeck(ChazzPrinceton);
@@ -119,7 +119,7 @@ namespace DMotMTests.ChazzPrinceton
 
             // Play Ojama Yellow
             Card ojamaYellow = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.OjamaYellow);
-            AssertIsInPlayAndNotUnderCard(ojamaYellow);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, ojamaYellow);
 
             // Put Armed Dragon Lv3 into hand
             Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
@@ -155,7 +155,7 @@ namespace DMotMTests.ChazzPrinceton
             UsePower(ChazzPrinceton);
 
             // Assert that Ojama Black was played
-            AssertIsInPlayAndNotUnderCard(ojamaBlack);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, ojamaBlack);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -177,7 +177,7 @@ namespace DMotMTests.ChazzPrinceton
 
             // Play Ojama Yellow
             Card ojamaYellow = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.OjamaYellow);
-            AssertIsInPlayAndNotUnderCard(ojamaYellow);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, ojamaYellow);
 
             // Put Armed Dragon Lv3 into hand
             Card armedDragonLv3 = PutInHand(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);

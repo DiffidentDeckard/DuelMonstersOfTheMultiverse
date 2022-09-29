@@ -80,7 +80,7 @@ namespace DMotMTests.ChazzPrinceton
             // Assert that we have one less card in hand, and Armed Dragon Lv3 is in play area
             QuickHandCheck(-1);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -135,7 +135,7 @@ namespace DMotMTests.ChazzPrinceton
             // Assert that we have one less card in hand, and Armed Dragon Lv3 is in play area
             QuickHandCheck(-1);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -146,7 +146,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play Armed Dragon Lv3
             Card armedDragonLv3 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Move all Cards from Chazz Princeton's hand into the deck
             MoveAllCardsFromHandToDeck(ChazzPrinceton);
@@ -186,7 +186,7 @@ namespace DMotMTests.ChazzPrinceton
             // Assert that no changes were made in the hand or play area
             QuickHandCheck(0);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -197,7 +197,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play Armed Dragon Lv3
             Card armedDragonLv3 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Move all Cards from Chazz Princeton's hand into the deck
             MoveAllCardsFromHandToDeck(ChazzPrinceton);
@@ -246,7 +246,7 @@ namespace DMotMTests.ChazzPrinceton
             // Assert that no changes were made in the hand or play area
             QuickHandCheck(0);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
             AssertInHand(ChazzPrinceton, armedDragonLv5);
 
             // Assert no other changes in any of the other play areas
@@ -258,11 +258,11 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play Armed Dragon Lv3
             Card armedDragonLv3 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Play X Head Cannon
             Card xheadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
-            AssertIsInPlayAndNotUnderCard(xheadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xheadCannon);
 
             // Move all Cards from Chazz Princeton's hand into the deck
             MoveAllCardsFromHandToDeck(ChazzPrinceton);
@@ -307,8 +307,8 @@ namespace DMotMTests.ChazzPrinceton
             // Since Armed Dragon Lv3 was destroyed we should have also drawn a card
             QuickHandCheck(0);
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv5);
-            AssertIsInPlayAndNotUnderCard(xheadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv5);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xheadCannon);
             AssertInTrash(ChazzPrinceton, armedDragonLv3);
 
             // Assert no other changes in any of the other play areas
@@ -320,7 +320,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play Armed Dragon Lv3
             Card armedDragonLv3 = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ArmedDragonLv3);
-            AssertIsInPlayAndNotUnderCard(armedDragonLv3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, armedDragonLv3);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);

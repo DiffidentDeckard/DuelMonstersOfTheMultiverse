@@ -51,7 +51,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play X Head Cannon
             Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -72,7 +72,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -99,7 +99,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play X Head Cannon
             Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Store the cards currently in hand
             QuickHandStorage(ChazzPrinceton);
@@ -121,7 +121,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -138,7 +138,7 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play X Head Cannon
             Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Assert that Y Dragon Head is not in the play area
             AssertNotInPlayArea(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
@@ -189,7 +189,7 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
@@ -200,11 +200,11 @@ namespace DMotMTests.ChazzPrinceton
         {
             // Play X Head Cannon
             Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
 
             // Play Y Dragon Head
             Card yDragonHead = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.YDragonHead);
-            AssertIsInPlayAndNotUnderCard(yDragonHead);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, yDragonHead);
 
             // Go to Chazz Princeton Use Power Phase
             GoToUsePowerPhase(ChazzPrinceton);
@@ -258,11 +258,34 @@ namespace DMotMTests.ChazzPrinceton
             QuickHandCheck(0);
 
             AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
-            AssertIsInPlayAndNotUnderCard(xHeadCannon);
-            AssertIsInPlayAndNotUnderCard(yDragonHead);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, yDragonHead);
 
             // Assert no other changes in any of the other play areas
             AssertAllTestKeepersInPlayForAllTestTurnTakers();
+        }
+
+        [Test]
+        public void UsePower_WithNoZInPlay_DoesNotLetYouUseAnotherPower()
+        {
+            // Play X Head Cannon
+            Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
+
+            // Assert that Z Metal Tank is not in the play area
+            AssertNotInPlayArea(ChazzPrinceton, ChazzPrincetonConstants.ZMetalTank);
+
+            // Go to Chazz Princeton Use Power Phase
+            GoToUsePowerPhase(ChazzPrinceton);
+
+            // Store the cards currently in hand
+            QuickHandStorage(ChazzPrinceton);
+
+            // Assert that no decision will be presented to the player
+            AssertNoDecision();
+
+            // Use X Head Cannon power
+            UsePower(xHeadCannon);
         }
     }
 }
