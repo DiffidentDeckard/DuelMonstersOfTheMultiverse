@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DiffidentDeckard_SotMBaseMod">
-      <Version>1.0.8307.17760</Version>
+      <Version>1.0.8307.28721</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

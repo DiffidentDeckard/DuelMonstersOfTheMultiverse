@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DMotM;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
@@ -286,6 +287,76 @@ namespace DMotMTests.ChazzPrinceton
 
             // Use X Head Cannon power
             UsePower(xHeadCannon);
+
+            // Assert only one power was used this turn
+            int numPowersUseThisTurn = GameJournal.UsePowerEntriesThisTurn().Count();
+            Assert.That(numPowersUseThisTurn, Is.EqualTo(1));
+
+            // Assert that we cannot use another power
+            bool chazzCanUseAnotherPower = GameController.CanPerformPhaseAction(GameController.ActiveTurnPhase);
+            Assert.That(chazzCanUseAnotherPower, Is.False);
+
+            // Assert that no changes were made in the hand or play area
+            QuickHandCheck(0);
+
+            AssertNumberOfCardsInPlay(ChazzPrinceton, 2);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
+        }
+
+        [Test]
+        public void UsePower_WithZInPlay_LetsYouUseAnotherPower()
+        {
+            // Play X Head Cannon
+            Card xHeadCannon = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.XHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
+
+            // Play Z Metal Tank
+            Card zMetalTank = PlayCard(ChazzPrinceton, ChazzPrincetonConstants.ZMetalTank);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, zMetalTank);
+
+            // Move all Cards from Chazz Princeton's hand into the deck
+            MoveAllCardsFromHandToDeck(ChazzPrinceton);
+            AssertNumberOfCardsInHand(ChazzPrinceton, 0);
+
+            // Go to Chazz Princeton Use Power Phase
+            GoToUsePowerPhase(ChazzPrinceton);
+
+            // Store the cards currently in hand
+            QuickHandStorage(ChazzPrinceton);
+
+            // Store the expected target choices
+            IEnumerable<Card> includedCards = new List<Card>() { ChazzPrinceton.CharacterCard };
+            IEnumerable<Card> notIncludedCards = GameController.FindCardsWhere(card => !card.Equals(ChazzPrinceton.CharacterCard));
+
+            // Assert that we see the expected choices.
+            // We will attempt to use Chazz Princeton's power
+            AssertNextDecisionChoices(includedCards, notIncludedCards);
+            DecisionSelectPower = ChazzPrinceton.CharacterCard;
+
+            // Use X Head Cannon power
+            UsePower(xHeadCannon);
+
+            // Assert two powers were used this turn
+            int numPowersUseThisTurn = GameJournal.UsePowerEntriesThisTurn().Count();
+            Assert.That(numPowersUseThisTurn, Is.EqualTo(2));
+
+            // Assert that we cannot use another power
+            bool chazzCanUseAnotherPower = GameController.CanPerformPhaseAction(GameController.ActiveTurnPhase);
+            Assert.That(chazzCanUseAnotherPower, Is.False);
+
+            // Assert that we drew a card using Chazz Princeton's power
+            QuickHandCheck(1);
+
+            // Assert that no changes were made in the play area
+            AssertNumberOfCardsInPlay(ChazzPrinceton, 3);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, xHeadCannon);
+            AssertInPlayAreaAndHasGameText(ChazzPrinceton, zMetalTank);
+
+            // Assert no other changes in any of the other play areas
+            AssertAllTestKeepersInPlayForAllTestTurnTakers();
         }
     }
 }
